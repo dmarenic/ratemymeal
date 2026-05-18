@@ -15,17 +15,56 @@
 
             <a class="navbar-brand" href="/">RateMyMeal</a>
 
+
             <div>
-                <a href="/login/" class="btn btn-outline-light me-2">
-                    Login
-                </a>
 
-                <a href="/register/" class="btn btn-warning">
-                    Register
-                </a>
-            </div>
+    {% if user.is_authenticated %}
 
-        </div>
+        <a
+            href="{% url 'feed' %}"
+            class="btn btn-outline-light me-2"
+        >
+            Feed
+        </a>
+
+        <a
+            href="{% url 'profile' user.username %}"
+            class="btn btn-outline-light me-2"
+        >
+            Profile
+        </a>
+
+        <form
+            method="POST"
+            action="{% url 'logout' %}"
+            class="d-inline"
+        >
+            {% csrf_token %}
+
+            <button class="btn btn-warning">
+                Logout
+            </button>
+        </form>
+
+    {% else %}
+
+        <a
+            href="{% url 'login' %}"
+            class="btn btn-outline-light me-2"
+        >
+            Login
+        </a>
+
+        <a
+            href="{% url 'register' %}"
+            class="btn btn-warning"
+        >
+            Register
+        </a>
+
+    {% endif %}
+
+</div>
     </nav>
 
     <div class="container mt-5">
