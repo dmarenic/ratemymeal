@@ -1,6 +1,12 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import RegisterForm
+from .forms import (
+    ProfileUpdateForm,
+    RegisterForm,
+    UserUpdateForm,
+)
 
 
 def register_view(request):
@@ -21,3 +27,63 @@ def register_view(request):
     }
 
     return render(request, 'users/register.html', context)
+
+
+@login_required
+def profile_view(request, username):
+
+    user_profile = get_object_or_404(User, username=username)
+
+    context = {
+        'profile_user': user_profile
+    }
+
+    return render(request, 'users/profile.html', context)
+
+
+@login_required
+def edit_profile(request):
+
+    if request.method == 'POST':
+
+        user_form = UserUpdateForm(
+            request.POST,
+            instance=request.user
+        )
+
+        profile_form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=request.user.userprofile
+        )
+
+        if user_form.is_valid() and profile_form.is_valid():
+
+            user_form.save()
+            profile_form.save()
+
+            return redirect(
+                'profile',
+                username=request.user.username
+            )
+
+    else:
+
+        user_form = UserUpdateForm(
+            instance=request.user
+        )
+
+        profile_form = ProfileUpdateForm(
+            instance=request.user.userprofile
+        )
+
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form
+    }
+
+    return render(
+        request,
+        'users/edit_profile.html',
+        context
+    )

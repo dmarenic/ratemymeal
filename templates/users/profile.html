@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+        <div class="card shadow p-5">
+
+            <div class="text-center">
+
+                <img
+                    src="{{ profile_user.userprofile.profile_image.url }}"
+                    class="rounded-circle mb-4"
+                    width="150"
+                    height="150"
+                >
+
+                <h2>
+                    {{ profile_user.username }}
+                </h2>
+
+                <span class="badge bg-warning text-dark">
+                    {{ profile_user.userprofile.role }}
+                </span>
+
+                <p class="mt-4">
+                    {{ profile_user.userprofile.bio }}
+                </p>
+
+                <p>
+                    📍 {{ profile_user.userprofile.location }}
+                </p>
+
+                {% if request.user == profile_user %}
+
+                    <a
+                        href="{% url 'edit-profile' %}"
+                        class="btn btn-dark mt-3"
+                    >
+                        Edit Profile
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
