@@ -39,9 +39,8 @@ urlpatterns = [
 
     path('', include('users.urls')),
 
-    path('', include('posts.urls')),
-    
     path('', include('foodposts.urls')),
+    
 ]
 
 if settings.DEBUG:

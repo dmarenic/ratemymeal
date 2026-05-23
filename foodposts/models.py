@@ -18,7 +18,8 @@ class FoodPost(models.Model):
 
     author = models.ForeignKey(
         User,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='foodposts_foodposts'
     )
 
     title = models.CharField(max_length=255)
