@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-5">
+    Food Feed
+</h1>
+
+<div class="row">
+
+    {% for post in posts %}
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow">
+
+            {% if post.image %}
+            <img
+                src="{{ post.image.url }}"
+                class="card-img-top"
+                height="250"
+                style="object-fit: cover;"
+            >
+            {% endif %}
+
+            <div class="card-body">
+
+                <h5>
+                    {{ post.title }}
+                </h5>
+
+                <p>
+                    {{ post.description|truncatewords:15 }}
+                </p>
+
+                <p>
+                    Rating:
+                    {{ post.rating }}/5
+                </p>
+                <a
+                    href="{% url 'post-detail' post.id %}"
+                    class="btn btn-dark mt-3"
+>
+                        View Post
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <p>
+        No posts yet.
+    </p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
