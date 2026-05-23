@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card shadow p-4">
+
+    <img
+        src="{{ post.image.url }}"
+        class="img-fluid rounded mb-4"
+    >
+
+    <h1>
+        {{ post.title }}
+    </h1>
+
+    <p class="text-muted">
+        by {{ post.author.username }}
+    </p>
+
+    <p>
+        {{ post.description }}
+    </p>
+
+    <p>
+        <strong>Cuisine:</strong>
+        {{ post.cuisine }}
+    </p>
+
+    <p>
+        <strong>Type:</strong>
+        {{ post.post_type }}
+    </p>
+
+    <p>
+        <strong>Rating:</strong>
+        {{ post.rating }}/5
+    </p>
+
+</div>
+
+{% endblock %}
