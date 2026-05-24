@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
+from foodposts.models import FoodPost, Favorite 
 
 from .forms import (
     ProfileUpdateForm,
@@ -32,13 +33,22 @@ def register_view(request):
 @login_required
 def profile_view(request, username):
 
-    user_profile = get_object_or_404(
-        User,
+    profile_user = User.objects.get(
         username=username
     )
 
+    posts = FoodPost.objects.filter(
+        author=profile_user
+    ).order_by('-created_at')
+
+    favorites = Favorite.objects.filter(
+        user=profile_user
+    ).order_by('-created_at')
+
     context = {
-        'profile_user': user_profile
+        'profile_user': profile_user,
+        'posts': posts,
+        'favorites': favorites,
     }
 
     return render(

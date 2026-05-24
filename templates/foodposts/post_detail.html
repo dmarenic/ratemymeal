@@ -14,7 +14,13 @@
     </h1>
 
     <p class="text-muted">
+
         by {{ post.author.username }}
+
+        |
+
+        {{ post.created_at|date:"d.m.Y H:i" }}
+
     </p>
 
     <p>
@@ -35,6 +41,125 @@
         <strong>Rating:</strong>
         {{ post.rating }}/5
     </p>
+
+    <hr>
+
+    <p>
+
+        <strong>
+            Likes:
+        </strong>
+
+        {{ post.likes.count }}
+
+    </p>
+
+    <a
+        href="{% url 'toggle-like' post.id %}"
+        class="btn btn-outline-danger mb-3"
+    >
+
+        {% if liked %}
+            Unlike
+        {% else %}
+            Like
+        {% endif %}
+
+    </a>
+
+    <a
+        href="{% url 'toggle-favorite' post.id %}"
+        class="btn btn-outline-warning mb-3"
+    >
+
+        {% if favorited %}
+            Remove Favorite
+        {% else %}
+            Add Favorite
+        {% endif %}
+
+    </a>
+
+    <hr>
+
+    {% if request.user == post.author or request.user.is_staff %}
+
+    <a
+        href="{% url 'edit-post' post.id %}"
+        class="btn btn-warning"
+    >
+        Edit
+    </a>
+
+    <a
+        href="{% url 'delete-post' post.id %}"
+        class="btn btn-danger"
+    >
+        Delete
+    </a>
+
+    {% endif %}
+
+    <hr class="my-5">
+
+    <h3 class="mb-4">
+        Comments
+    </h3>
+
+    <form method="POST" class="mb-5">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="btn btn-dark">
+            Add Comment
+        </button>
+
+    </form>
+
+    {% for comment in comments %}
+
+    <div class="card shadow-sm p-3 mb-3">
+
+        <strong>
+            {{ comment.author.username }}
+        </strong>
+
+        <small class="text-muted">
+
+            {{ comment.created_at|date:"d.m.Y H:i" }}
+
+        </small>
+
+    <div class="d-flex justify-content-between align-items-center">
+
+    <p class="mt-2 mb-0">
+        {{ comment.text }}
+    </p>
+
+    {% if request.user == comment.author or request.user.is_staff %}
+
+    <a
+        href="{% url 'delete-comment' comment.id %}"
+        class="btn btn-sm btn-danger"
+    >
+        Delete
+    </a>
+
+    {% endif %}
+
+</div>
+
+    </div>
+
+    {% empty %}
+
+    <p>
+        No comments yet.
+    </p>
+
+    {% endfor %}
 
 </div>
 

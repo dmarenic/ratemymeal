@@ -2,53 +2,148 @@
 
 {% block content %}
 
-<div class="row justify-content-center">
+<div class="card shadow p-5 mb-5">
 
-    <div class="col-md-8">
+    <h1>
+        {{ profile_user.username }}
+    </h1>
 
-        <div class="card shadow p-5">
+    <p class="text-muted">
 
-            <div class="text-center">
+        Joined:
+        {{ profile_user.date_joined|date:"d.m.Y" }}
 
-                <img
-                    src="{{ profile_user.userprofile.profile_image.url }}"
-                    class="rounded-circle mb-4"
-                    width="150"
-                    height="150"
-                >
+    </p>
 
-                <h2>
-                    {{ profile_user.username }}
-                </h2>
+    <hr>
 
-                <span class="badge bg-warning text-dark">
-                    {{ profile_user.userprofile.role }}
-                </span>
+    <div class="row text-center">
 
-                <p class="mt-4">
-                    {{ profile_user.userprofile.bio }}
-                </p>
+        <div class="col-md-6">
+
+            <h3>
+                {{ posts.count }}
+            </h3>
+
+            <p>
+                Posts
+            </p>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <h3>
+                {{ favorites.count }}
+            </h3>
+
+            <p>
+                Favorites
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<h2 class="mb-4">
+    User Posts
+</h2>
+
+<div class="row">
+
+    {% for post in posts %}
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow h-100">
+
+            <img
+                src="{{ post.image.url }}"
+                class="card-img-top"
+                style="height:250px; object-fit:cover;"
+            >
+
+            <div class="card-body">
+
+                <h5>
+                    {{ post.title }}
+                </h5>
 
                 <p>
-                    📍 {{ profile_user.userprofile.location }}
+                    {{ post.description|truncatewords:15 }}
                 </p>
 
-                {% if request.user == profile_user %}
-
-                    <a
-                        href="{% url 'edit-profile' %}"
-                        class="btn btn-dark mt-3"
-                    >
-                        Edit Profile
-                    </a>
-
-                {% endif %}
+                <a
+                    href="{% url 'post-detail' post.id %}"
+                    class="btn btn-dark"
+                >
+                    View Post
+                </a>
 
             </div>
 
         </div>
 
     </div>
+
+    {% empty %}
+
+    <p>
+        No posts yet.
+    </p>
+
+    {% endfor %}
+
+</div>
+
+<hr class="my-5">
+
+<h2 class="mb-4">
+    Favorite Posts
+</h2>
+
+<div class="row">
+
+    {% for favorite in favorites %}
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow h-100">
+
+            <img
+                src="{{ favorite.post.image.url }}"
+                class="card-img-top"
+                style="height:250px; object-fit:cover;"
+            >
+
+            <div class="card-body">
+
+                <h5>
+                    {{ favorite.post.title }}
+                </h5>
+
+                <a
+                    href="{% url 'post-detail' favorite.post.id %}"
+                    class="btn btn-warning"
+                >
+                    View Post
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <p>
+        No favorite posts yet.
+    </p>
+
+    {% endfor %}
 
 </div>
 

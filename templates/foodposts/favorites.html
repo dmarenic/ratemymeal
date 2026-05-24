@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-5">
+    My Favorites
+</h1>
+
+<div class="row">
+
+    {% for favorite in favorites %}
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow h-100">
+
+            <img
+                src="{{ favorite.post.image.url }}"
+                class="card-img-top"
+                style="height:250px; object-fit:cover;"
+            >
+
+            <div class="card-body">
+
+                <h5>
+                    {{ favorite.post.title }}
+                </h5>
+
+                <p>
+                    {{ favorite.post.description|truncatewords:15 }}
+                </p>
+
+                <a
+                    href="{% url 'post-detail' favorite.post.id %}"
+                    class="btn btn-dark"
+                >
+                    View Post
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <p>
+        No favorite posts yet.
+    </p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

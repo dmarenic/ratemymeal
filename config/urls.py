@@ -36,11 +36,8 @@ urlpatterns = [
     ),
 
     path('', include('core.urls')),
-
     path('', include('users.urls')),
-
-    path('', include('foodposts.urls')),
-    
+    path('',include('foodposts.urls')),
 ]
 
 if settings.DEBUG:

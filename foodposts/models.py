@@ -18,8 +18,7 @@ class FoodPost(models.Model):
 
     author = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
-        related_name='foodposts_foodposts'
+        on_delete=models.CASCADE
     )
 
     title = models.CharField(max_length=255)
@@ -49,3 +48,82 @@ class FoodPost(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Comment(models.Model):
+
+    post = models.ForeignKey(
+        FoodPost,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    text = models.TextField()
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+
+        return f'{self.author} - {self.post}'
+    
+class Like(models.Model):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    post = models.ForeignKey(
+        FoodPost,
+        on_delete=models.CASCADE,
+        related_name='likes'
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+
+        unique_together = (
+            'user',
+            'post'
+        )
+
+    def __str__(self):
+
+        return f'{self.user} likes {self.post}'
+    
+class Favorite(models.Model):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    post = models.ForeignKey(
+        FoodPost,
+        on_delete=models.CASCADE,
+        related_name='favorites'
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+
+        unique_together = (
+            'user',
+            'post'
+        )
+
+    def __str__(self):
+
+        return f'{self.user} favorited {self.post}'
