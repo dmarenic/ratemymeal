@@ -338,3 +338,55 @@ def delete_comment(request, comment_id):
         'post-detail',
         post_id=post_id
     )
+
+@login_required
+def edit_comment(request, comment_id):
+
+    comment = get_object_or_404(
+        Comment,
+        id=comment_id
+    )
+
+    if (
+        request.user != comment.author
+        and
+        not request.user.is_staff
+    ):
+
+        return redirect(
+            'post-detail',
+            post_id=comment.post.id
+        )
+
+    if request.method == 'POST':
+
+        form = CommentForm(
+            request.POST,
+            instance=comment
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect(
+                'post-detail',
+                post_id=comment.post.id
+            )
+
+    else:
+
+        form = CommentForm(
+            instance=comment
+        )
+
+    context = {
+        'form': form,
+        'comment': comment,
+    }
+
+    return render(
+        request,
+        'foodposts/edit_comment.html',
+        context
+    )

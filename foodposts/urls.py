@@ -56,4 +56,10 @@ urlpatterns = [
     views.delete_comment,
     name='delete-comment'
 ),
+
+    path(
+    'comments/<int:comment_id>/edit/',
+    views.edit_comment,
+    name='edit-comment'
+),
 ]

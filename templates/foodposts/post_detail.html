@@ -132,24 +132,35 @@
 
         </small>
 
-    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center">
 
-    <p class="mt-2 mb-0">
-        {{ comment.text }}
-    </p>
+            <p class="mt-2 mb-0">
+                {{ comment.text }}
+            </p>
 
-    {% if request.user == comment.author or request.user.is_staff %}
+            {% if request.user == comment.author or request.user.is_staff %}
 
-    <a
-        href="{% url 'delete-comment' comment.id %}"
-        class="btn btn-sm btn-danger"
-    >
-        Delete
-    </a>
+            <div class="d-flex gap-2">
 
-    {% endif %}
+                <a
+                    href="{% url 'edit-comment' comment.id %}"
+                    class="btn btn-sm btn-warning"
+                >
+                    Edit
+                </a>
 
-</div>
+                <a
+                    href="{% url 'delete-comment' comment.id %}"
+                    class="btn btn-sm btn-danger"
+                >
+                    Delete
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
 
     </div>
 
