@@ -123,6 +123,12 @@
 
                 {% endif %}
 
+                {% if user.userprofile.role == 'CRITIC' %}
+                    <a href="{% url 'critic-dashboard' %}" class="btn btn-outline-warning me-2">
+                        Critic Dashboard
+                    </a>
+                {% endif %}
+
                 <form
                     method="POST"
                     action="{% url 'logout' %}"

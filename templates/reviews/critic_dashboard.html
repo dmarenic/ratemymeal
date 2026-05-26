@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    Food Critic Dashboard
+</h1>
+
+<div class="card shadow p-4 mb-5">
+    <h4>
+        Your review statistics
+    </h4>
+
+    <p class="mb-0">
+        Total verified reviews: <strong>{{ review_count }}</strong>
+    </p>
+</div>
+
+<h3 class="mb-4">
+    Your Reviews
+</h3>
+
+{% for review in reviews %}
+
+<div class="card shadow p-4 mb-4">
+    <h4>
+        {{ review.post.title }}
+    </h4>
+
+    <p>
+        {{ review.review_text }}
+    </p>
+
+    <p>
+        Taste: {{ review.taste_rating }}/5 |
+        Price: {{ review.price_rating }}/5 |
+        Presentation: {{ review.presentation_rating }}/5 |
+        Service: {{ review.service_rating }}/5 |
+        Atmosphere: {{ review.atmosphere_rating }}/5
+    </p>
+
+    {% if review.is_featured %}
+        <span class="badge bg-warning text-dark">
+            Featured Review
+        </span>
+    {% endif %}
+</div>
+
+{% empty %}
+
+<p>
+    You have not written any verified reviews yet.
+</p>
+
+{% endfor %}
+
+{% endblock %}

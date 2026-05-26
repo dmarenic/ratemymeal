@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users',
     'core',
     'foodposts',
+    'reviews',
 ]
 
 MIDDLEWARE = [
