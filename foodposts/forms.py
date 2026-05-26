@@ -1,6 +1,21 @@
 from django import forms
 
-from .models import FoodPost, Comment
+from .models import FoodPost, Comment, Report
+
+
+class ReportForm(forms.ModelForm):
+
+    class Meta:
+        model = Report
+        fields = ['reason', 'description']
+        widgets = {
+    'description': forms.Textarea(
+        attrs={
+            'rows': 5,
+            'placeholder': 'Explain why you are reporting this post...'
+        }
+    )
+}
 
 
 class FoodPostForm(forms.ModelForm):

@@ -75,6 +75,15 @@
         {% endif %}
     </a>
 
+    <a
+        href="{% url 'report-post' post.id %}"
+        class="btn btn-outline-danger mb-3"
+        >
+
+        Report Post
+
+    </a>
+
     {% if request.user.userprofile.role == 'CRITIC' %}
         <a
             href="{% url 'create-critic-review' post.id %}"

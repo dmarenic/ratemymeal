@@ -127,3 +127,47 @@ class Favorite(models.Model):
     def __str__(self):
 
         return f'{self.user} favorited {self.post}'
+    
+class Report(models.Model):
+
+    REPORT_TYPES = (
+        ('spam', 'Spam'),
+        ('offensive', 'Offensive'),
+        ('fake', 'Fake Content'),
+        ('other', 'Other'),
+    )
+
+    reporter = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    post = models.ForeignKey(
+        FoodPost,
+        on_delete=models.CASCADE,
+        related_name='reports'
+    )
+
+    reason = models.CharField(
+        max_length=50,
+        choices=REPORT_TYPES
+    )
+
+    description = models.TextField(
+        blank=True
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+
+        unique_together = (
+            'reporter',
+            'post'
+        )
+
+    def __str__(self):
+
+        return f'{self.reporter} reported {self.post}'

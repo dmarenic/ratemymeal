@@ -70,4 +70,10 @@ urlpatterns = [
         views.following_feed,
         name='following-feed'
 ),
+
+path(
+    'posts/<int:post_id>/report/',
+    views.report_post,
+    name='report-post'
+),
 ]

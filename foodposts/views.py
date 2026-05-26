@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import CommentForm, FoodPostForm
-from .models import Comment, Cuisine, Favorite, FoodPost, Like
+from .forms import CommentForm, FoodPostForm, ReportForm 
+from .models import Comment, Cuisine, Favorite, FoodPost, Like, Report
 
 
 @login_required
@@ -290,5 +290,58 @@ def following_feed(request):
     return render(
         request,
         'foodposts/following_feed.html',
+        context
+    )
+
+@login_required
+def report_post(request, post_id):
+
+    post = get_object_or_404(
+        FoodPost,
+        id=post_id
+    )
+
+    if request.method == 'POST':
+
+        form = ReportForm(request.POST)
+
+        if form.is_valid():
+
+            report, created = Report.objects.get_or_create(
+                reporter=request.user,
+                post=post,
+                defaults={
+                    'reason': form.cleaned_data['reason'],
+                    'description': form.cleaned_data['description'],
+                }
+            )
+
+            if not created:
+
+                report.reason = form.cleaned_data['reason']
+
+                report.description = (
+                    form.cleaned_data['description']
+                )
+
+                report.save()
+
+            return redirect(
+                'post-detail',
+                post_id=post.id
+            )
+
+    else:
+
+        form = ReportForm()
+
+    context = {
+        'form': form,
+        'post': post
+    }
+
+    return render(
+        request,
+        'foodposts/report_post.html',
         context
     )
