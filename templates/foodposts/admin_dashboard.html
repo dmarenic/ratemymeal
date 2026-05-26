@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-5">Admin Dashboard</h1>
+
+<div class="row mb-5">
+
+    <div class="col-md-3">
+        <div class="card shadow p-4 text-center">
+            <h3>{{ user_count }}</h3>
+            <p>Users</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow p-4 text-center">
+            <h3>{{ post_count }}</h3>
+            <p>Posts</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow p-4 text-center">
+            <h3>{{ comment_count }}</h3>
+            <p>Comments</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow p-4 text-center">
+            <h3>{{ report_count }}</h3>
+            <p>Reports</p>
+        </div>
+    </div>
+
+</div>
+
+<h3 class="mb-4">Management</h3>
+
+<div class="d-flex flex-wrap gap-3 mb-5">
+
+    <a href="/admin/auth/user/" class="btn btn-dark">
+        Manage Users
+    </a>
+
+    <a href="/admin/foodposts/foodpost/" class="btn btn-dark">
+        Manage Posts
+    </a>
+
+    <a href="/admin/foodposts/report/" class="btn btn-dark">
+        Manage Reports
+    </a>
+
+    <a href="/admin/foodposts/comment/" class="btn btn-dark">
+        Manage Comments
+    </a>
+
+    <a href="/admin/foodposts/cuisine/" class="btn btn-dark">
+        Manage Cuisines
+    </a>
+
+    <a href="/admin/reviews/criticreview/" class="btn btn-dark">
+        Manage Critic Reviews
+    </a>
+
+</div>
+
+<h3>Latest Reports</h3>
+
+{% for report in latest_reports %}
+
+<div class="card shadow p-3 mb-3">
+    <strong>{{ report.post.title }}</strong>
+    <p class="mb-1">Reason: {{ report.reason }}</p>
+    <p class="mb-1">Description: {{ report.description }}</p>
+    <small>Reported by {{ report.reporter.username }}</small>
+</div>
+
+{% empty %}
+
+<p>No reports yet.</p>
+
+{% endfor %}
+
+{% endblock %}

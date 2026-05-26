@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
+from django.contrib.auth.models import User
+from django.contrib.admin.views.decorators import staff_member_required
+
 from .forms import CommentForm, FoodPostForm, ReportForm 
 from .models import Comment, Cuisine, Favorite, FoodPost, Like, Report
 
@@ -343,5 +346,22 @@ def report_post(request, post_id):
     return render(
         request,
         'foodposts/report_post.html',
+        context
+    )
+
+@staff_member_required
+def admin_dashboard(request):
+
+    context = {
+        'user_count': User.objects.count(),
+        'post_count': FoodPost.objects.count(),
+        'comment_count': Comment.objects.count(),
+        'report_count': Report.objects.count(),
+        'latest_reports': Report.objects.all().order_by('-created_at')[:5],
+    }
+
+    return render(
+        request,
+        'foodposts/admin_dashboard.html',
         context
     )

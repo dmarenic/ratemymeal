@@ -76,4 +76,10 @@ path(
     views.report_post,
     name='report-post'
 ),
+
+path(
+    'dashboard/admin/',
+    views.admin_dashboard,
+    name='admin-dashboard'
+),
 ]
