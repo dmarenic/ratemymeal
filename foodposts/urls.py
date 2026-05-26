@@ -62,4 +62,6 @@ urlpatterns = [
     views.edit_comment,
     name='edit-comment'
 ),
+
+    path('trending/', views.trending_view, name='trending'),
 ]

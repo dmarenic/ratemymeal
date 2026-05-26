@@ -10,7 +10,7 @@
 
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-4">
 
             <input
                 type="text"
@@ -49,6 +49,34 @@
             </select>
 
         </div>
+
+        <div class="col-md-2">
+
+    <select
+        name="post_type"
+        class="form-select"
+    >
+
+        <option value="">
+            All Types
+        </option>
+
+        {% for value, label in post_types %}
+
+        <option
+            value="{{ value }}"
+            {% if request.GET.post_type == value %}
+                selected
+            {% endif %}
+        >
+            {{ label }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+</div>
 
         <div class="col-md-2">
 
