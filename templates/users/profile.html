@@ -18,6 +18,29 @@
         {{ profile_user.username }}
     </h1>
 
+    {% if request.user != profile.user %}
+
+    <form
+        method="POST"
+        action="{% url 'toggle-follow' profile.user.username %}"
+    >
+
+        {% csrf_token %}
+
+        <button class="btn btn-dark">
+
+            {% if is_following %}
+                Unfollow
+            {% else %}
+                Follow
+            {% endif %}
+
+        </button>
+
+    </form>
+
+    {% endif %}
+
     <p class="text-muted">
 
         Joined:
@@ -30,6 +53,18 @@
         {{ profile_user.userprofile.bio }}
 
     </p>
+
+    <p>
+
+Followers:
+
+<strong>
+
+{{ profile.followers.count }}
+
+</strong>
+
+</p>
 
     {% if profile_user.userprofile.location %}
 

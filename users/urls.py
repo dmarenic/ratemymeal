@@ -19,6 +19,11 @@ urlpatterns = [
         views.edit_profile,
         name='edit-profile'
     ),
+    path(
+        'follow/<str:username>/',
+        views.toggle_follow,
+        name='toggle-follow'
+),
 ]
 
 

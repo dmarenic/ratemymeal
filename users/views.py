@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 from foodposts.models import FoodPost, Favorite 
+from .models import UserProfile
 
 from .forms import (
     ProfileUpdateForm,
@@ -37,6 +38,8 @@ def profile_view(request, username):
         username=username
     )
 
+    profile = profile_user.userprofile
+
     posts = FoodPost.objects.filter(
         author=profile_user
     ).order_by('-created_at')
@@ -45,10 +48,16 @@ def profile_view(request, username):
         user=profile_user
     ).order_by('-created_at')
 
+    is_following = profile.followers.filter(
+        id=request.user.id
+    ).exists()
+
     context = {
         'profile_user': profile_user,
+        'profile': profile,
         'posts': posts,
         'favorites': favorites,
+        'is_following': is_following,
     }
 
     return render(
@@ -56,7 +65,6 @@ def profile_view(request, username):
         'users/profile.html',
         context
     )
-
 
 @login_required
 def edit_profile(request):
@@ -103,4 +111,29 @@ def edit_profile(request):
         request,
         'users/edit_profile.html',
         context
+    )
+
+@login_required
+def toggle_follow(request, username):
+
+    profile = get_object_or_404(
+        UserProfile,
+        user__username=username
+    )
+
+    if request.user in profile.followers.all():
+
+        profile.followers.remove(
+            request.user
+        )
+
+    else:
+
+        profile.followers.add(
+            request.user
+        )
+
+    return redirect(
+        'profile',
+        username=username
     )
