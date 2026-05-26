@@ -268,3 +268,27 @@ def edit_comment(request, comment_id):
     }
 
     return render(request, 'foodposts/edit_comment.html', context)
+
+@login_required
+def following_feed(request):
+
+    followed_profiles = request.user.following.all()
+
+    followed_users = [
+        profile.user
+        for profile in followed_profiles
+    ]
+
+    posts = FoodPost.objects.filter(
+        author__in=followed_users
+    ).order_by('-created_at')
+
+    context = {
+        'posts': posts
+    }
+
+    return render(
+        request,
+        'foodposts/following_feed.html',
+        context
+    )

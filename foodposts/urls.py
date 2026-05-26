@@ -64,4 +64,10 @@ urlpatterns = [
 ),
 
     path('trending/', views.trending_view, name='trending'),
+
+    path(
+        'following/',
+        views.following_feed,
+        name='following-feed'
+),
 ]
