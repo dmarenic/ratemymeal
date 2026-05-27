@@ -36,6 +36,26 @@
         {{ post.cuisine }}
     </p>
 
+    {% if post.restaurant %}
+
+    <p>
+
+        <strong>
+            Restaurant:
+        </strong>
+
+        <a
+        href="{% url 'restaurant-detail' post.restaurant.id %}"
+        >
+
+        {{ post.restaurant.name }}
+
+        </a>
+
+    </p>
+
+    {% endif %}
+
     <p>
         <strong>Type:</strong>
         {{ post.get_post_type_display }}

@@ -35,6 +35,14 @@ class FoodPost(models.Model):
         null=True
     )
 
+    restaurant = models.ForeignKey(
+        'restaurants.Restaurant',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='posts'
+    )
+
     post_type = models.CharField(
         max_length=20,
         choices=POST_TYPES

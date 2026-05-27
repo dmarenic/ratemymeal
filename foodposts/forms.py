@@ -31,6 +31,7 @@ class FoodPostForm(forms.ModelForm):
             'cuisine',
             'post_type',
             'rating',
+            'restaurant',
         ]
 class CommentForm(forms.ModelForm):
 

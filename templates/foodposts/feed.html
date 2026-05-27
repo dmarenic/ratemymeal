@@ -131,6 +131,32 @@
 
                 <p>
 
+                <strong>
+                Restaurant:
+                </strong>
+
+                {% if post.post_type == 'home_made' %}
+
+                Home Made
+
+                {% elif post.restaurant %}
+
+                <a href="{% url 'restaurant-detail' post.restaurant.id %}">
+
+                {{ post.restaurant.name }}
+
+                </a>
+
+                {% else %}
+
+                —
+
+                {% endif %}
+
+
+                
+                <p>
+
                     <strong>
                         Cuisine:
                     </strong>

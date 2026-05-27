@@ -35,4 +35,57 @@
 
 </div>
 
+<hr>
+
+<h3 class="mb-4">
+
+Posts
+
+</h3>
+
+<div class="row">
+
+{% for post in restaurant.posts.all %}
+
+<div class="col-md-4">
+
+<div class="card p-3 mb-3">
+
+<h5>
+
+{{ post.title }}
+
+</h5>
+
+<p>
+
+⭐ {{ post.rating }}/5
+
+</p>
+
+<a
+href="{% url 'post-detail' post.id %}"
+class="btn btn-dark"
+>
+
+View
+
+</a>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<p>
+
+No posts.
+
+</p>
+
+{% endfor %}
+
+</div>
+
 {% endblock %}
