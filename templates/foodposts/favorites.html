@@ -1,56 +1,261 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<section class="favorites-hero mb-5">
+  <div class="hero-content">
+    <div>
+      <span class="hero-badge"> ❤️ Saved Meals </span>
 
-<h1 class="mb-5">
-    My Favorites
-</h1>
+      <h1 class="hero-title">My Favorites</h1>
 
-<div class="row">
+      <p class="hero-subtitle">All meals you loved in one place.</p>
+    </div>
+  </div>
+</section>
 
-    {% for favorite in favorites %}
+<div class="row g-4">
+  {% for favorite in favorites %}
 
-    <div class="col-md-4 mb-4">
+  <div class="col-lg-4 col-md-6">
+    <div class="favorite-card card h-100">
+      <div class="image-wrapper">
+        <img src="{{ favorite.post.image.url }}" class="card-img-top" />
 
-        <div class="card shadow h-100">
+        <div class="favorite-chip">❤️ Favorite</div>
+      </div>
 
-            <img
-                src="{{ favorite.post.image.url }}"
-                class="card-img-top"
-                style="height:250px; object-fit:cover;"
+      <div class="card-body d-flex flex-column">
+        <h3>{{ favorite.post.title }}</h3>
+
+        <p class="description">
+          {{ favorite.post.description|truncatewords:18 }}
+        </p>
+
+        <div class="favorite-meta">
+          <div>
+            👤
+
+            <a
+              href="{% url 'profile' favorite.post.author.username %}"
+              class="author-link"
             >
+              {{ favorite.post.author.username }}
+            </a>
+          </div>
 
-            <div class="card-body">
+          {% if favorite.post.rating %}
 
-                <h5>
-                    {{ favorite.post.title }}
-                </h5>
+          <div>⭐ {{ favorite.post.rating }}/5</div>
 
-                <p>
-                    {{ favorite.post.description|truncatewords:15 }}
-                </p>
-
-                <a
-                    href="{% url 'post-detail' favorite.post.id %}"
-                    class="btn btn-dark"
-                >
-                    View Post
-                </a>
-
-            </div>
-
+          {% endif %}
         </div>
 
+        <a
+          href="{% url 'post-detail' favorite.post.id %}"
+          class="btn btn-warning mt-auto w-100"
+        >
+          View Meal
+        </a>
+      </div>
     </div>
+  </div>
 
-    {% empty %}
+  {% empty %}
 
-    <p>
-        No favorite posts yet.
-    </p>
+  <div class="col-12">
+    <div class="empty-state">
+      <div class="empty-icon">🍽️</div>
 
-    {% endfor %}
+      <h2>No favorite meals yet</h2>
 
+      <p>Start saving meals you want to revisit.</p>
+
+      <a href="{% url 'feed' %}" class="btn btn-warning btn-lg mt-3">
+        Explore Feed
+      </a>
+    </div>
+  </div>
+
+  {% endfor %}
 </div>
+
+<style>
+  .favorites-hero {
+    padding: 48px;
+
+    border-radius: 32px;
+
+    background: linear-gradient(135deg, #ffffff, #fff8f0);
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  }
+
+  .hero-title {
+    font-size: 4rem;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    margin: 18px 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+
+    color: #666;
+  }
+
+  .hero-badge {
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(229, 57, 53, 0.1);
+
+    color: #e53935;
+
+    font-weight: 800;
+  }
+
+  .favorite-card {
+    border: none;
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    transition: 0.3s;
+  }
+
+  .favorite-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .image-wrapper {
+    position: relative;
+
+    overflow: hidden;
+  }
+
+  .card-img-top {
+    height: 320px;
+
+    object-fit: cover;
+
+    transition: 0.35s;
+  }
+
+  .favorite-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .favorite-chip {
+    position: absolute;
+
+    top: 18px;
+
+    right: 18px;
+
+    background: white;
+
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    font-weight: 900;
+
+    color: #e53935;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .favorite-card h3 {
+    font-weight: 900;
+
+    margin-bottom: 14px;
+  }
+
+  .description {
+    color: #666;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+  }
+
+  .favorite-meta {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 22px;
+
+    font-weight: 700;
+
+    color: #555;
+  }
+
+  .author-link {
+    color: #e53935;
+
+    text-decoration: none;
+
+    font-weight: 800;
+  }
+
+  .author-link:hover {
+    color: #ff7a00;
+  }
+
+  .favorite-card .btn {
+    min-height: 58px;
+  }
+
+  .empty-state {
+    background: white;
+
+    padding: 90px;
+
+    border-radius: 32px;
+
+    text-align: center;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+  }
+
+  .empty-icon {
+    font-size: 90px;
+
+    margin-bottom: 20px;
+  }
+
+  .empty-state h2 {
+    font-size: 2rem;
+
+    font-weight: 900;
+
+    margin-bottom: 14px;
+  }
+
+  .empty-state p {
+    color: #777;
+
+    max-width: 420px;
+
+    margin: auto;
+  }
+
+  @media (max-width: 992px) {
+    .hero-title {
+      font-size: 2.8rem;
+    }
+
+    .card-img-top {
+      height: 260px;
+    }
+  }
+</style>
 
 {% endblock %}

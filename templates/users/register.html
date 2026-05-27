@@ -1,33 +1,163 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<div class="row justify-content-center align-items-center">
+  <div class="col-lg-6 col-md-8">
+    <div class="card register-card">
+      <div class="card-body p-5">
+        <div class="text-center mb-5">
+          <div class="hero-icon mb-3">🍔</div>
 
-<div class="row justify-content-center">
+          <h1 class="fw-bold mb-2">Join RateMyMeal</h1>
 
-    <div class="col-md-6">
-
-        <div class="card shadow p-4">
-
-            <h2 class="mb-4 text-center">
-                Create Account
-            </h2>
-
-            <form method="POST">
-
-                {% csrf_token %}
-
-                {{ form.as_p }}
-
-                <button type="submit" class="btn btn-warning w-100">
-                    Register
-                </button>
-
-            </form>
-
+          <p class="text-muted">
+            Share meals, discover restaurants and join the community.
+          </p>
         </div>
 
-    </div>
+        <form method="POST">
+          {% csrf_token %}
 
+          <div class="register-form">{{ form.as_p }}</div>
+
+          <button type="submit" class="btn btn-warning w-100 py-3 mt-4">
+            Create Account
+          </button>
+        </form>
+
+        <div class="text-center mt-4">
+          <small class="text-muted">
+            Already have an account?
+
+            <a href="{% url 'login' %}" class="login-link"> Login </a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+  .register-card {
+    border: none;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    background: linear-gradient(180deg, #ffffff, #fff8f0);
+
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.08);
+  }
+
+  .hero-icon {
+    width: 90px;
+
+    height: 90px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 42px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+      135deg,
+      rgba(255, 122, 0, 0.18),
+      rgba(229, 57, 53, 0.12)
+    );
+  }
+
+  .register-form p {
+    margin-bottom: 20px;
+  }
+
+  .register-form label {
+    display: block;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+    color: #222;
+  }
+
+  .register-form input,
+  .register-form select,
+  .register-form textarea {
+    width: 100%;
+
+    padding: 16px 18px;
+
+    border-radius: 16px;
+
+    border: 2px solid rgba(0, 0, 0, 0.08);
+
+    background: white;
+
+    transition: all 0.25s ease;
+  }
+
+  .register-form input:focus,
+  .register-form select:focus,
+  .register-form textarea:focus {
+    outline: none;
+
+    border-color: #ff7a00;
+
+    box-shadow: 0 0 0 6px rgba(255, 122, 0, 0.12);
+
+    transform: scale(1.01);
+  }
+
+  .btn-warning {
+    min-height: 64px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    font-size: 1.05rem;
+
+    font-weight: 800;
+
+    background: linear-gradient(135deg, #ff7a00, #e53935);
+
+    color: white;
+
+    box-shadow: 0 15px 35px rgba(255, 122, 0, 0.3);
+  }
+
+  .btn-warning:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .btn-warning:active {
+    transform: scale(0.98);
+  }
+
+  .login-link {
+    color: #e53935;
+
+    text-decoration: none;
+
+    font-weight: 700;
+  }
+
+  .login-link:hover {
+    color: #ff7a00;
+  }
+
+  @media (max-width: 768px) {
+    .card-body {
+      padding: 32px;
+    }
+  }
+</style>
 
 {% endblock %}

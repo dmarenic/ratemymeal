@@ -72,3 +72,60 @@ def create_critic_review(request, post_id):
         'reviews/create_review.html',
         context
     )
+
+@login_required
+def edit_critic_review(request, review_id):
+
+    review = get_object_or_404(
+        CriticReview,
+        id=review_id,
+        critic=request.user
+    )
+
+    if request.method == 'POST':
+        form = CriticReviewForm(request.POST, instance=review)
+
+        if form.is_valid():
+            form.save()
+            return redirect('post-detail', post_id=review.post.id)
+
+    else:
+        form = CriticReviewForm(instance=review)
+
+    context = {
+        'form': form,
+        'post': review.post,
+        'review': review,
+    }
+
+    return render(
+        request,
+        'reviews/edit_critic_review.html',
+        context
+    )
+
+
+@login_required
+def delete_critic_review(request, review_id):
+
+    review = get_object_or_404(
+        CriticReview,
+        id=review_id,
+        critic=request.user
+    )
+
+    post_id = review.post.id
+
+    if request.method == 'POST':
+        review.delete()
+        return redirect('post-detail', post_id=post_id)
+
+    context = {
+        'review': review,
+    }
+
+    return render(
+        request,
+        'reviews/delete_critic_review.html',
+        context
+    )

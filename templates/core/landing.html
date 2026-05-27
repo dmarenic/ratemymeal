@@ -1,32 +1,306 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<section class="hero">
+  <div class="row align-items-center">
+    <div class="col-lg-6">
+      <div class="hero-content">
+        <span class="hero-badge"> 🔥 Trending Meals Daily </span>
 
-<div class="text-center">
+        <h1 class="hero-title">Discover. Share. Taste.</h1>
 
-    <h1 class="display-3 fw-bold">
-        Welcome to RateMyMeal
-    </h1>
+        <p class="hero-subtitle">
+          Explore meals, restaurants and food experiences shared by thousands of
+          food lovers.
+        </p>
 
-    <p class="lead mt-4">
-        Discover amazing food, restaurants and recipes from food lovers around the world.
-    </p>
+        <div class="hero-actions">
+          <a href="/register/" class="btn btn-warning btn-lg">
+            Start Exploring
+          </a>
 
-    <div class="mt-5">
-
-        <a href="/register/" class="btn btn-warning btn-lg me-3">
-            Get Started
-        </a>
-
-        <a href="/login/" class="btn btn-dark btn-lg">
-            Login
-        </a>
-        <a href="/feed/" class="btn btn-dark btn-lg">
-            Posts
-        </a>
-
+          <a href="/login/" class="btn btn-outline-light btn-lg"> Login </a>
+        </div>
+      </div>
     </div>
 
-</div>
+    <div class="col-lg-6">
+      <div class="food-showcase">
+        <div class="food-card food-main">🍔</div>
+
+        <div class="food-card food-small one">🍕</div>
+
+        <div class="food-card food-small two">🍣</div>
+
+        <div class="food-card food-small three">🍩</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="preview-section">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="feature-card">
+        <div class="feature-icon">📷</div>
+
+        <h4>Share Meals</h4>
+
+        <p>Upload photos and inspire others.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+
+        <h4>Discover Favorites</h4>
+
+        <p>Save meals and restaurants you love.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-card">
+        <div class="feature-icon">🍽️</div>
+
+        <h4>Explore Restaurants</h4>
+
+        <p>Find your next favorite place.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a href="/feed/" class="btn btn-warning btn-lg px-5"> Browse Posts </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 50px;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 5.8rem);
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    margin: 24px 0;
+
+    letter-spacing: -3px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+
+    max-width: 560px;
+
+    line-height: 1.8;
+
+    color: #666;
+  }
+
+  .hero-badge {
+    display: inline-block;
+
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 193, 7, 0.18);
+
+    color: #ff7a00;
+
+    font-weight: 800;
+  }
+
+  .hero-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-top: 40px;
+
+    flex-wrap: wrap;
+  }
+
+  .hero-actions .btn {
+    min-width: 180px;
+
+    min-height: 64px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 36px;
+  }
+
+  .hero-stats {
+    display: flex;
+
+    gap: 40px;
+
+    margin-top: 60px;
+
+    flex-wrap: wrap;
+  }
+
+  .stat h3 {
+    color: #e53935;
+
+    font-size: 2rem;
+
+    font-weight: 900;
+
+    margin-bottom: 6px;
+  }
+
+  .stat span {
+    color: #777;
+  }
+
+  .food-showcase {
+    position: relative;
+
+    height: 600px;
+  }
+
+  .food-card {
+    position: absolute;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: white;
+
+    border-radius: 30px;
+
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s;
+  }
+
+  .food-card:hover {
+    transform: scale(1.06);
+  }
+
+  .food-main {
+    width: 360px;
+
+    height: 360px;
+
+    font-size: 170px;
+
+    right: 80px;
+
+    top: 70px;
+
+    background: linear-gradient(135deg, #fff, #fff8f0);
+  }
+
+  .food-small {
+    width: 140px;
+
+    height: 140px;
+
+    font-size: 70px;
+  }
+
+  .one {
+    left: 0;
+
+    top: 50px;
+  }
+
+  .two {
+    right: 0;
+
+    bottom: 120px;
+  }
+
+  .three {
+    left: 80px;
+
+    bottom: 0;
+  }
+
+  .preview-section {
+    margin-top: 80px;
+  }
+
+  .feature-card {
+    background: white;
+
+    padding: 42px;
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.06);
+
+    transition: 0.25s;
+
+    height: 100%;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .feature-icon {
+    font-size: 56px;
+
+    margin-bottom: 20px;
+  }
+
+  .feature-card h4 {
+    font-weight: 800;
+  }
+
+  @media (max-width: 992px) {
+    .food-showcase {
+      height: 360px;
+
+      margin-top: 50px;
+    }
+
+    .food-main {
+      width: 240px;
+
+      height: 240px;
+
+      font-size: 120px;
+
+      right: 50%;
+
+      transform: translateX(50%);
+    }
+
+    .food-small {
+      display: none;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
+    }
+
+    .hero-stats {
+      justify-content: center;
+    }
+  }
+</style>
 
 {% endblock %}

@@ -365,3 +365,4 @@ def admin_dashboard(request):
         'foodposts/admin_dashboard.html',
         context
     )
+

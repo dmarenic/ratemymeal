@@ -1,124 +1,279 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<div class="hero-section mb-5">
+  <div class="hero-content">
+    <div>
+      <span class="hero-badge"> 🍽 Explore Restaurants </span>
 
-<div class="d-flex justify-content-between mb-5">
+      <h1 class="hero-title">Discover Great Food</h1>
 
-    <h1>
-        Restaurants
-    </h1>
-
-    <form method="GET" class="card shadow-sm p-3 mb-5">
-
-    <div class="row">
-
-        <div class="col-md-5">
-
-            <input
-                type="text"
-                name="search"
-                class="form-control"
-                placeholder="Search restaurants..."
-                value="{{ search_query }}"
-            >
-
-        </div>
-
-        <div class="col-md-5">
-
-            <input
-                type="text"
-                name="city"
-                class="form-control"
-                placeholder="Filter by city..."
-                value="{{ city_filter }}"
-            >
-
-        </div>
-
-        <div class="col-md-2">
-
-<input
-type="number"
-step="0.1"
-name="rating"
-class="form-control"
-placeholder="Min rating"
-value="{{ rating }}"
->
-
-</div>
-
-        <div class="col-md-2">
-
-            <button class="btn btn-dark w-100">
-                Filter
-            </button>
-
-        </div>
-
+      <p class="hero-subtitle">
+        Find restaurants, ratings and community favorites.
+      </p>
     </div>
 
-</form>
-
-    <a
-        href="{% url 'create-restaurant' %}"
-        class="btn btn-dark"
-    >
-        Add Restaurant
+    <a href="{% url 'create-restaurant' %}" class="btn btn-warning btn-lg px-5">
+      Add Restaurant
     </a>
-
+  </div>
 </div>
 
-<div class="row">
+<div class="filter-card mb-5">
+  <form method="GET">
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <input
+          type="text"
+          name="search"
+          class="form-control"
+          placeholder="🔍 Search restaurants"
+          value="{{ search_query }}"
+        />
+      </div>
 
-{% for restaurant in restaurants %}
+      <div class="col-lg-3">
+        <input
+          type="text"
+          name="city"
+          class="form-control"
+          placeholder="📍 City"
+          value="{{ city_filter }}"
+        />
+      </div>
 
-<div class="col-md-4 mb-4">
+      <div class="col-lg-2">
+        <input
+          type="number"
+          step="0.1"
+          name="rating"
+          class="form-control"
+          placeholder="⭐ Rating"
+          value="{{ rating }}"
+        />
+      </div>
 
-    <div class="card shadow h-100">
-
-        <img
-            src="{{ restaurant.image.url }}"
-            class="card-img-top"
-            style="height:250px; object-fit:cover;"
-        >
-
-        <div class="card-body">
-
-            <h4>
-                {{ restaurant.name }}
-            </h4>
-
-            <p>
-                {{ restaurant.city }}
-            </p>
-
-            <p>
-    ⭐          {{ restaurant.average_rating }}/5
-            </p>
-
-            <a
-                href="{% url 'restaurant-detail' restaurant.id %}"
-                class="btn btn-dark"
-            >
-                View
-            </a>
-
-        </div>
-
+      <div class="col-lg-3">
+        <button class="btn btn-warning w-100">Apply Filters</button>
+      </div>
     </div>
-
+  </form>
 </div>
 
-{% empty %}
+<div class="row g-4">
+  {% for restaurant in restaurants %}
 
-<p>
-No restaurants yet.
-</p>
+  <div class="col-lg-4 col-md-6">
+    <div class="restaurant-card card h-100">
+      <div class="image-wrapper">
+        <img src="{{ restaurant.image.url }}" class="card-img-top" />
 
-{% endfor %}
+        <div class="rating-chip">⭐ {{ restaurant.average_rating }}/5</div>
+      </div>
 
+      <div class="card-body d-flex flex-column">
+        <div class="city-tag">📍 {{ restaurant.city }}</div>
+
+        <h3 class="restaurant-title">{{ restaurant.name }}</h3>
+
+        <div class="mt-auto">
+          <a
+            href="{% url 'restaurant-detail' restaurant.id %}"
+            class="btn btn-warning w-100"
+          >
+            View Restaurant
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% empty %}
+
+  <div class="col-12">
+    <div class="empty-state">
+      🍴
+
+      <h3>No restaurants found</h3>
+
+      <p>Try different filters or add the first restaurant.</p>
+    </div>
+  </div>
+
+  {% endfor %}
 </div>
+
+<style>
+  .hero-section {
+    padding: 48px;
+
+    border-radius: 32px;
+
+    background: linear-gradient(135deg, #ffffff, #fff8f0);
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  }
+
+  .hero-content {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+
+    font-weight: 900;
+
+    margin: 18px 0;
+
+    letter-spacing: -2px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+
+    color: #666;
+  }
+
+  .hero-badge {
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 193, 7, 0.18);
+
+    color: #ff7a00;
+
+    font-weight: 800;
+  }
+
+  .filter-card {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 28px;
+
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
+  }
+
+  .restaurant-card {
+    border: none;
+
+    border-radius: 26px;
+
+    overflow: hidden;
+
+    transition: 0.28s;
+  }
+
+  .restaurant-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .image-wrapper {
+    position: relative;
+
+    overflow: hidden;
+  }
+
+  .card-img-top {
+    height: 300px;
+
+    object-fit: cover;
+
+    transition: 0.3s;
+  }
+
+  .restaurant-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .rating-chip {
+    position: absolute;
+
+    top: 18px;
+
+    right: 18px;
+
+    background: white;
+
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    font-weight: 800;
+
+    color: #e53935;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  }
+
+  .city-tag {
+    display: inline-flex;
+
+    padding: 8px 14px;
+
+    background: rgba(76, 175, 80, 0.12);
+
+    color: #4caf50;
+
+    border-radius: 999px;
+
+    font-weight: 700;
+
+    margin-bottom: 16px;
+  }
+
+  .restaurant-title {
+    font-size: 1.45rem;
+
+    font-weight: 900;
+
+    margin-bottom: 24px;
+  }
+
+  .restaurant-card .btn {
+    min-height: 58px;
+  }
+
+  .empty-state {
+    padding: 80px;
+
+    background: white;
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.05);
+
+    font-size: 80px;
+  }
+
+  .empty-state h3 {
+    margin-top: 20px;
+
+    font-weight: 900;
+
+    font-size: 2rem;
+  }
+
+  @media (max-width: 992px) {
+    .hero-content {
+      flex-direction: column;
+
+      align-items: flex-start;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+    }
+  }
+</style>
 
 {% endblock %}

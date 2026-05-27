@@ -1,259 +1,383 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<section class="feed-hero mb-5">
+  <div class="hero-content">
+    <div>
+      <span class="hero-badge"> 🔥 Trending Meals </span>
 
-<h1 class="mb-5">
-    Food Feed
-</h1>
+      <h1 class="hero-title">Food Feed</h1>
 
-<form method="GET" class="mb-5">
+      <p class="hero-subtitle">
+        Discover meals, restaurants and reviews from the community.
+      </p>
+    </div>
+  </div>
+</section>
 
-    <div class="row">
+<div class="filter-panel mb-5">
+  <form method="GET">
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <input
+          type="text"
+          name="search"
+          class="form-control"
+          placeholder="🔍 Search meals"
+          value="{{ request.GET.search }}"
+        />
+      </div>
 
-        <div class="col-md-4">
+      <div class="col-lg-3">
+        <select name="cuisine" class="form-select">
+          <option value="">All Cuisines</option>
 
-            <input
-                type="text"
-                name="search"
-                class="form-control"
-                placeholder="Search posts..."
-                value="{{ request.GET.search }}"
-            >
+          {% for cuisine in cuisines %}
 
-        </div>
+          <option
+            value="{{ cuisine.id }}"
+            {%
+            if
+            request.GET.cuisine=""
+            ="cuisine.id"
+            %}
+            selected
+            {%
+            endif
+            %}
+          >
+            {{ cuisine.name }}
+          </option>
 
-        <div class="col-md-3">
+          {% endfor %}
+        </select>
+      </div>
 
-            <select
-                name="cuisine"
-                class="form-select"
-            >
+      <div class="col-lg-3">
+        <select name="post_type" class="form-select">
+          <option value="">All Types</option>
 
-                <option value="">
-                    All Cuisines
-                </option>
+          {% for value, label in post_types %}
 
-                {% for cuisine in cuisines %}
-
-                <option
-                    value="{{ cuisine.id }}"
-                    {% if request.GET.cuisine == cuisine.id|stringformat:"s" %}
-                        selected
-                    {% endif %}
-                >
-                    {{ cuisine.name }}
-                </option>
-
-                {% endfor %}
-
-            </select>
-
-        </div>
-
-        <div class="col-md-3">
-
-    <select
-        name="post_type"
-        class="form-select"
-    >
-
-        <option value="">
-            All Types
-        </option>
-
-        {% for value, label in post_types %}
-
-        <option
+          <option
             value="{{ value }}"
-            {% if request.GET.post_type == value %}
-                selected
-            {% endif %}
-        >
+            {%
+            if
+            request.GET.post_type=""
+            ="value"
+            %}
+            selected
+            {%
+            endif
+            %}
+          >
             {{ label }}
-        </option>
+          </option>
 
-        {% endfor %}
+          {% endfor %}
+        </select>
+      </div>
 
-    </select>
-
+      <div class="col-lg-2">
+        <button class="btn btn-warning w-100">Filter</button>
+      </div>
+    </div>
+  </form>
 </div>
 
-        <div class="col-md-2">
+<div class="row g-4">
+  {% for post in page_obj %}
 
-            <button class="btn btn-dark w-100">
-                Filter
-            </button>
+  <div class="col-lg-4 col-md-6">
+    <div class="food-card card h-100">
+      <div class="image-wrapper">
+        <img src="{{ post.image.url }}" class="card-img-top" />
 
+        <div class="rating-chip">⭐ {{ post.rating }}/5</div>
+      </div>
+
+      <div class="card-body d-flex flex-column">
+        <div class="meta-row">
+          <a href="{% url 'profile' post.author.username %}" class="author">
+            {{ post.author.username }}
+          </a>
+
+          <span class="likes"> ❤️ {{ post.likes.count }} </span>
         </div>
 
-    </div>
+        <h3>{{ post.title }}</h3>
 
-</form>
+        <p class="description">{{ post.description|truncatewords:18 }}</p>
 
-<div class="row">
+        <div class="tags">
+          {% if post.post_type == 'home_made' %}
 
-    {% for post in page_obj %}
+          <span class="tag homemade"> 🏠 Home Made </span>
 
-    <div class="col-md-4 mb-5">
+          {% elif post.restaurant %}
 
-        <div class="card shadow h-100">
+          <a
+            href="{% url 'restaurant-detail' post.restaurant.id %}"
+            class="tag"
+          >
+            🍽 {{ post.restaurant.name }}
+          </a>
 
-            <img
-                src="{{ post.image.url }}"
-                class="card-img-top"
-                style="height:250px; object-fit:cover;"
-            >
+          {% endif %} {% if post.cuisine %}
 
-            <div class="card-body d-flex flex-column">
+          <span class="tag cuisine"> {{ post.cuisine }} </span>
 
-                <h4>
-                    {{ post.title }}
-                </h4>
-
-                <p class="text-muted">
-
-                    by
-
-                    <a
-                    href="{% url 'profile' post.author.username %}"
-                    class="text-decoration-none"
-                    >
-
-                    {{ post.author.username }}
-
-                    </a>
-
-                </p>
-
-                <p>
-                    {{ post.description|truncatewords:15 }}
-                </p>
-
-                <p>
-
-                <strong>
-                Restaurant:
-                </strong>
-
-                {% if post.post_type == 'home_made' %}
-
-                Home Made
-
-                {% elif post.restaurant %}
-
-                <a href="{% url 'restaurant-detail' post.restaurant.id %}">
-
-                {{ post.restaurant.name }}
-
-                </a>
-
-                {% else %}
-
-                —
-
-                {% endif %}
-
-
-                
-                <p>
-
-                    <strong>
-                        Cuisine:
-                    </strong>
-
-                    {{ post.cuisine }}
-
-                </p>
-
-                <p>
-
-                    <strong>
-                        Rating:
-                    </strong>
-
-                    {{ post.rating }}/5
-
-                </p>
-
-                <p>
-
-                    ❤️ {{ post.likes.count }}
-
-                    |
-
-                    💬 {{ post.comments.count }}
-
-                </p>
-
-                <a
-                    href="{% url 'post-detail' post.id %}"
-                    class="btn btn-dark mt-auto"
-                >
-                    View Post
-                </a>
-
-            </div>
-
+          {% endif %}
         </div>
 
+        <div class="stats">💬 {{ post.comments.count }}</div>
+
+        <a
+          href="{% url 'post-detail' post.id %}"
+          class="btn btn-warning mt-auto w-100"
+        >
+          View Meal
+        </a>
+      </div>
     </div>
+  </div>
 
-    {% empty %}
+  {% empty %}
 
-    <p>
-        No posts found.
-    </p>
+  <div class="col-12">
+    <div class="empty-feed">
+      🍔
 
-    {% endfor %}
+      <h2>No meals found</h2>
 
+      <p>Try another filter or create the first post.</p>
+    </div>
+  </div>
+
+  {% endfor %}
 </div>
 
 <nav class="mt-5">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
 
-    <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+        ←
+      </a>
+    </li>
 
-        {% if page_obj.has_previous %}
+    {% endif %}
 
-        <li class="page-item">
+    <li class="page-item active">
+      <span class="page-link"> {{ page_obj.number }} </span>
+    </li>
 
-            <a
-                class="page-link"
-                href="?page={{ page_obj.previous_page_number }}"
-            >
-                Previous
-            </a>
+    {% if page_obj.has_next %}
 
-        </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}"> → </a>
+    </li>
 
-        {% endif %}
-
-        <li class="page-item active">
-
-            <span class="page-link">
-
-                {{ page_obj.number }}
-
-            </span>
-
-        </li>
-
-        {% if page_obj.has_next %}
-
-        <li class="page-item">
-
-            <a
-                class="page-link"
-                href="?page={{ page_obj.next_page_number }}"
-            >
-                Next
-            </a>
-
-        </li>
-
-        {% endif %}
-
-    </ul>
-
+    {% endif %}
+  </ul>
 </nav>
+
+<style>
+  .feed-hero {
+    padding: 48px;
+
+    border-radius: 32px;
+
+    background: linear-gradient(135deg, #ffffff, #fff8f0);
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  }
+
+  .hero-title {
+    font-size: 4.5rem;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    margin: 20px 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+
+    color: #666;
+  }
+
+  .hero-badge {
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 193, 7, 0.18);
+
+    color: #ff7a00;
+
+    font-weight: 800;
+  }
+
+  .filter-panel {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 28px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+  }
+
+  .food-card {
+    border: none;
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    transition: 0.3s;
+  }
+
+  .food-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .image-wrapper {
+    position: relative;
+
+    overflow: hidden;
+  }
+
+  .card-img-top {
+    height: 320px;
+
+    object-fit: cover;
+
+    transition: 0.35s;
+  }
+
+  .food-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .rating-chip {
+    position: absolute;
+
+    top: 16px;
+
+    right: 16px;
+
+    background: white;
+
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    font-weight: 900;
+
+    color: #e53935;
+  }
+
+  .meta-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+  }
+
+  .author {
+    font-weight: 800;
+
+    color: #e53935;
+
+    text-decoration: none;
+  }
+
+  .description {
+    color: #666;
+
+    line-height: 1.7;
+  }
+
+  .tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 18px 0;
+  }
+
+  .tag {
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 122, 0, 0.12);
+
+    color: #ff7a00;
+
+    font-weight: 700;
+
+    text-decoration: none;
+  }
+
+  .homemade {
+    background: rgba(76, 175, 80, 0.12);
+
+    color: #4caf50;
+  }
+
+  .stats {
+    margin-bottom: 20px;
+
+    color: #666;
+
+    font-weight: 700;
+  }
+
+  .empty-feed {
+    padding: 90px;
+
+    background: white;
+
+    border-radius: 30px;
+
+    text-align: center;
+
+    font-size: 80px;
+  }
+
+  .empty-feed h2 {
+    margin-top: 24px;
+
+    font-weight: 900;
+  }
+
+  .pagination .page-link {
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 14px 20px;
+
+    margin: 0 6px;
+  }
+
+  .pagination .active .page-link {
+    background: #ff7a00;
+  }
+
+  @media (max-width: 992px) {
+    .hero-title {
+      font-size: 3rem;
+    }
+  }
+</style>
 
 {% endblock %}

@@ -15,4 +15,16 @@ urlpatterns = [
         views.create_critic_review,
         name='create-critic-review'
     ),
+
+    path(
+    'reviews/edit/<int:review_id>/',
+    views.edit_critic_review,
+    name='edit-critic-review'
+),
+
+path(
+    'reviews/delete/<int:review_id>/',
+    views.delete_critic_review,
+    name='delete-critic-review'
+),
 ]

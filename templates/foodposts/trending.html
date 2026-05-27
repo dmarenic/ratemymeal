@@ -1,76 +1,308 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<section class="trending-hero mb-5">
+  <div class="hero-content">
+    <div>
+      <span class="hero-badge"> 🔥 Trending Right Now </span>
 
-<h1 class="mb-5">
-    Trending Posts
-</h1>
+      <h1 class="hero-title">Trending Posts</h1>
 
-<div class="row">
+      <p class="hero-subtitle">Discover the meals everyone is talking about.</p>
+    </div>
+  </div>
+</section>
 
-    {% for post in posts %}
+<div class="row g-4">
+  {% for post in posts %}
 
-    <div class="col-md-4 mb-5">
+  <div class="col-lg-4 col-md-6">
+    <div class="trending-card card h-100">
+      <div class="image-wrapper">
+        <img src="{{ post.image.url }}" class="card-img-top" />
 
-        <div class="card shadow h-100">
+        <div class="trending-chip">🔥 Trending</div>
 
-            <img
-                src="{{ post.image.url }}"
-                class="card-img-top"
-                style="height:250px; object-fit:cover;"
-            >
+        <div class="rating-chip">⭐ {{ post.rating }}/5</div>
+      </div>
 
-            <div class="card-body d-flex flex-column">
+      <div class="card-body d-flex flex-column">
+        <div class="top-meta">
+          <div>
+            <span class="meta-label"> Shared by </span>
 
-                <h4>
-                    {{ post.title }}
-                </h4>
+            <div class="author">{{ post.author.username }}</div>
+          </div>
 
-                <p class="text-muted">
-                    by {{ post.author.username }}
-                </p>
-
-                <p>
-                    {{ post.description|truncatewords:15 }}
-                </p>
-
-                <p>
-                    <strong>Cuisine:</strong>
-                    {{ post.cuisine }}
-                </p>
-
-                <p>
-                    <strong>Rating:</strong>
-                    {{ post.rating }}/5
-                </p>
-
-                <p>
-                    ❤️ {{ post.likes.count }}
-                    |
-                    💬 {{ post.comments.count }}
-                </p>
-
-                <a
-                    href="{% url 'post-detail' post.id %}"
-                    class="btn btn-dark mt-auto"
-                >
-                    View Post
-                </a>
-
-            </div>
-
+          <div class="engagement">❤️ {{ post.likes.count }}</div>
         </div>
 
+        <h3>{{ post.title }}</h3>
+
+        <p class="description">{{ post.description|truncatewords:18 }}</p>
+
+        <div class="tags">
+          {% if post.cuisine %}
+
+          <span class="tag"> 🍴 {{ post.cuisine }} </span>
+
+          {% endif %}
+
+          <div class="comments">💬 {{ post.comments.count }}</div>
+        </div>
+
+        <a
+          href="{% url 'post-detail' post.id %}"
+          class="btn btn-warning mt-auto w-100"
+        >
+          View Meal
+        </a>
+      </div>
     </div>
+  </div>
 
-    {% empty %}
+  {% empty %}
 
-    <p>
-        No trending posts yet.
-    </p>
+  <div class="col-12">
+    <div class="empty-state">
+      <div class="empty-icon">🔥</div>
 
-    {% endfor %}
+      <h2>Nothing is trending yet</h2>
 
+      <p>Popular meals from the community will appear here.</p>
+
+      <a href="{% url 'feed' %}" class="btn btn-warning btn-lg mt-3">
+        Explore Feed
+      </a>
+    </div>
+  </div>
+
+  {% endfor %}
 </div>
+
+<style>
+  .trending-hero {
+    padding: 50px;
+
+    border-radius: 34px;
+
+    background: linear-gradient(135deg, #ffffff, #fff8f0);
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  }
+
+  .hero-title {
+    font-size: 4rem;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    margin: 18px 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+
+    color: #666;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 122, 0, 0.12);
+
+    color: #ff7a00;
+
+    font-weight: 900;
+  }
+
+  .trending-card {
+    border: none;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    transition: 0.3s;
+  }
+
+  .trending-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .image-wrapper {
+    position: relative;
+
+    overflow: hidden;
+  }
+
+  .card-img-top {
+    height: 320px;
+
+    object-fit: cover;
+
+    transition: 0.35s;
+  }
+
+  .trending-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .trending-chip {
+    position: absolute;
+
+    left: 18px;
+
+    top: 18px;
+
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(135deg, #ff7a00, #e53935);
+
+    color: white;
+
+    font-weight: 900;
+  }
+
+  .rating-chip {
+    position: absolute;
+
+    right: 18px;
+
+    top: 18px;
+
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    background: white;
+
+    font-weight: 900;
+
+    color: #e53935;
+  }
+
+  .top-meta {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+  }
+
+  .meta-label {
+    font-size: 0.8rem;
+
+    color: #888;
+
+    display: block;
+  }
+
+  .author {
+    font-weight: 900;
+
+    color: #e53935;
+  }
+
+  .engagement {
+    font-weight: 900;
+
+    color: #666;
+  }
+
+  .trending-card h3 {
+    font-weight: 900;
+
+    margin-bottom: 16px;
+  }
+
+  .description {
+    color: #666;
+
+    line-height: 1.8;
+  }
+
+  .tags {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin: 20px 0;
+  }
+
+  .tag {
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    background: rgba(76, 175, 80, 0.12);
+
+    color: #4caf50;
+
+    font-weight: 800;
+  }
+
+  .comments {
+    font-weight: 800;
+
+    color: #666;
+  }
+
+  .trending-card .btn {
+    min-height: 58px;
+  }
+
+  .empty-state {
+    background: white;
+
+    padding: 90px;
+
+    border-radius: 34px;
+
+    text-align: center;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+  }
+
+  .empty-icon {
+    font-size: 90px;
+
+    margin-bottom: 22px;
+  }
+
+  .empty-state h2 {
+    font-size: 2rem;
+
+    font-weight: 900;
+
+    margin-bottom: 14px;
+  }
+
+  .empty-state p {
+    max-width: 500px;
+
+    margin: auto;
+
+    color: #777;
+  }
+
+  @media (max-width: 992px) {
+    .hero-title {
+      font-size: 2.8rem;
+    }
+
+    .card-img-top {
+      height: 260px;
+    }
+  }
+</style>
 
 {% endblock %}

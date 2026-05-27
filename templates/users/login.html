@@ -1,33 +1,99 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<div class="row justify-content-center align-items-center">
+  <div class="col-lg-5 col-md-7">
+    <div class="card border-0">
+      <div class="card-body p-5">
+        <div class="text-center mb-5">
+          <div class="mb-3 fs-1">🍽️</div>
 
-<div class="row justify-content-center">
+          <h1 class="fw-bold mb-2">Welcome Back</h1>
 
-    <div class="col-md-5">
-
-        <div class="card shadow p-4">
-
-            <h2 class="text-center mb-4">
-                Login
-            </h2>
-
-            <form method="POST">
-
-                {% csrf_token %}
-
-                {{ form.as_p }}
-
-                <button type="submit" class="btn btn-dark w-100">
-                    Login
-                </button>
-
-            </form>
-
+          <p class="text-muted">Login and continue discovering great food.</p>
         </div>
 
-    </div>
+        <form method="POST">
+          {% csrf_token %}
 
+          <div class="login-form">{{ form.as_p }}</div>
+
+          <button type="submit" class="btn btn-warning w-100 py-3 mt-3">
+            Login
+          </button>
+        </form>
+
+        <div class="text-center mt-4">
+          <small class="text-muted">
+            New here?
+            <a
+              href="{% url 'register' %}"
+              class="fw-semibold"
+              style="color: #e53935; text-decoration: none"
+            >
+              Create account
+            </a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+  .login-form p {
+    margin-bottom: 1.25rem;
+  }
+
+  .login-form label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #222;
+  }
+
+  .login-form input {
+    width: 100%;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 16px 18px;
+    background: white;
+
+    transition:
+      transform 0.25s ease,
+      border 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .login-form input:focus {
+    outline: none;
+    border-color: #ff7a00;
+
+    box-shadow: 0 0 0 6px rgba(255, 122, 0, 0.12);
+
+    transform: scale(1.01);
+  }
+
+  .card {
+    border-radius: 28px !important;
+
+    background: linear-gradient(180deg, #ffffff, #fff8f0);
+
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+  }
+
+  .btn-warning {
+    font-size: 1.05rem;
+
+    font-weight: 800;
+
+    border-radius: 18px;
+
+    min-height: 62px;
+  }
+
+  .btn-warning:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+</style>
 
 {% endblock %}
