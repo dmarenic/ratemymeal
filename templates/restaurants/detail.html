@@ -33,6 +33,52 @@
 
     </p>
 
+    <hr>
+
+<div class="row text-center mb-5">
+
+<div class="col">
+
+<h4>
+⭐ {{ restaurant.average_rating }}/5
+</h4>
+
+Average Rating
+
+</div>
+
+<div class="col">
+
+<h4>
+🍽 {{ posts.count }}
+</h4>
+
+Posts
+
+</div>
+
+<div class="col">
+
+<h4>
+
+{% if top_user %}
+
+{{ top_user.username }}
+
+{% else %}
+
+—
+
+{% endif %}
+
+</h4>
+
+Top Reviewer
+
+</div>
+
+</div>
+
 </div>
 
 <hr>

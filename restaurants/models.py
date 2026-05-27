@@ -25,5 +25,19 @@ class Restaurant(models.Model):
         auto_now_add=True
     )
 
+    def average_rating(self):
+
+        posts = self.posts.all()
+
+        if posts.count() == 0:
+            return 0
+
+        total = sum(post.rating for post in posts)
+
+        return round(total / posts.count(), 1)
+
     def __str__(self):
         return self.name
+    
+    
+
