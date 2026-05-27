@@ -39,6 +39,11 @@ urlpatterns = [
     path('', include('users.urls')),
     path('',include('foodposts.urls')),
     path('', include('reviews.urls')),
+
+    path(
+        'restaurants/',
+        include('restaurants.urls')
+),
 ]
 
 if settings.DEBUG:

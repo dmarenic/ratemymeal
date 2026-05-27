@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card shadow p-5">
+
+<h1 class="mb-4">
+
+Create Restaurant
+
+</h1>
+
+<form
+method="POST"
+enctype="multipart/form-data"
+>
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button class="btn btn-dark">
+
+Save
+
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

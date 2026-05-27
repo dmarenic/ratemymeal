@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between mb-5">
+
+    <h1>
+        Restaurants
+    </h1>
+
+    <a
+        href="{% url 'create-restaurant' %}"
+        class="btn btn-dark"
+    >
+        Add Restaurant
+    </a>
+
+</div>
+
+<div class="row">
+
+{% for restaurant in restaurants %}
+
+<div class="col-md-4 mb-4">
+
+    <div class="card shadow h-100">
+
+        <img
+            src="{{ restaurant.image.url }}"
+            class="card-img-top"
+            style="height:250px; object-fit:cover;"
+        >
+
+        <div class="card-body">
+
+            <h4>
+                {{ restaurant.name }}
+            </h4>
+
+            <p>
+                {{ restaurant.city }}
+            </p>
+
+            <a
+                href="{% url 'restaurant-detail' restaurant.id %}"
+                class="btn btn-dark"
+            >
+                View
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>
+No restaurants yet.
+</p>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
