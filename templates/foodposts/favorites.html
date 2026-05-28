@@ -18,7 +18,11 @@
   <div class="col-lg-4 col-md-6">
     <div class="favorite-card card h-100">
       <div class="image-wrapper">
+        {% if favorite.post.image %}
         <img src="{{ favorite.post.image.url }}" class="card-img-top" />
+        {% else %}
+        <img src="/static/images/default-food.jpg" class="card-img-top" />
+        {% endif %}
 
         <div class="favorite-chip">❤️ Favorite</div>
       </div>

@@ -65,7 +65,11 @@
   <div class="col-lg-4 col-md-6">
     <div class="restaurant-card card h-100">
       <div class="image-wrapper">
+        {% if restaurant.image %}
         <img src="{{ restaurant.image.url }}" class="card-img-top" />
+        {% else %}
+        <img src="/static/images/default-restaurant.jpg" class="card-img-top" />
+        {% endif %}
 
         <div class="rating-chip">⭐ {{ restaurant.average_rating }}/5</div>
       </div>

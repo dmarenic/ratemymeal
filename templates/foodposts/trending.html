@@ -18,7 +18,11 @@
   <div class="col-lg-4 col-md-6">
     <div class="trending-card card h-100">
       <div class="image-wrapper">
+        {% if post.image %}
         <img src="{{ post.image.url }}" class="card-img-top" />
+        {% else %}
+        <img src="/static/images/default-food.jpg" class="card-img-top" />
+        {% endif %}
 
         <div class="trending-chip">🔥 Trending</div>
 

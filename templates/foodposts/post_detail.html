@@ -2,7 +2,11 @@
 
 <div class="post-card">
   <div class="hero-image">
+    {% if post.image %}
     <img src="{{ post.image.url }}" class="w-100" />
+    {% else %}
+    <img src="/static/images/default-food.jpg" class="w-100" />
+    {% endif %}
 
     <div class="hero-overlay">
       <div>

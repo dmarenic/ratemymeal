@@ -125,11 +125,18 @@
         <div class="food-card card h-100">
 
             <div class="image-wrapper">
-
-                <img
-                    src="{{ post.image.url }}"
-                    class="card-img-top"
-                >
+                
+                {% if post.image %}
+    <img
+        src="{{ post.image.url }}"
+        class="card-img-top"
+    >
+{% else %}
+    <img
+        src="/static/images/default-food.jpg"
+        class="card-img-top"
+    >
+{% endif %}
 
                 <div class="rating-chip">
                     ⭐ {{ post.rating }}/5

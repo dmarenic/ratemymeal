@@ -2,7 +2,11 @@
 
 <div class="restaurant-hero card overflow-hidden mb-5">
   <div class="hero-image">
+    {% if restaurant.image %}
     <img src="{{ restaurant.image.url }}" class="w-100" />
+    {% else %}
+    <img src="/static/images/default-restaurant.jpg" class="w-100" />
+    {% endif %}
 
     <div class="hero-overlay">
       <div>
