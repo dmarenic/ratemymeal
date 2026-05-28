@@ -6,6 +6,7 @@ class UserProfile(models.Model):
     ROLE_CHOICES = (
         ('USER', 'User'),
         ('CRITIC', 'Food Critic'),
+        ('RESTAURANT_OWNER', 'Restaurant Owner'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -15,11 +16,13 @@ class UserProfile(models.Model):
         upload_to='profile_images/',
         default='profile_images/default.png'
     )
+
     role = models.CharField(
-        max_length=10,
+        max_length=30,
         choices=ROLE_CHOICES,
         default='USER'
     )
+
     followers = models.ManyToManyField(
         User,
         related_name='following',
