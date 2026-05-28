@@ -354,6 +354,80 @@
             </a>
           </div>
 
+          {% else %} {% if user.userprofile.role == 'RESTAURANT_OWNER' %}
+
+          <div class="nav-group">
+            <a
+              href="{% url 'restaurant-owner-dashboard' %}"
+              class="btn btn-outline-warning"
+            >
+              Owner Dashboard
+            </a>
+
+            <a href="{% url 'owner-posts' %}" class="btn btn-outline-light">
+              My Restaurant Posts
+            </a>
+
+            <a href="{% url 'create-post' %}" class="btn btn-warning">
+              Create Post
+            </a>
+
+            <a
+              href="{% url 'profile' user.username %}"
+              class="btn btn-outline-info"
+            >
+              Profile
+            </a>
+          </div>
+
+          {% else %} {% if user.userprofile.role == 'CRITIC' %}
+
+          <div class="nav-group">
+            <a href="{% url 'feed' %}" class="btn btn-outline-light">Feed</a>
+
+            <a href="{% url 'trending' %}" class="btn btn-outline-light">
+              Trending
+            </a>
+
+            <a href="{% url 'following-feed' %}" class="btn btn-outline-light">
+              Following
+            </a>
+
+            <a href="{% url 'favorites' %}" class="btn btn-outline-warning">
+              Favorites
+            </a>
+          </div>
+
+          <div class="nav-divider"></div>
+
+          <div class="nav-group">
+            <a href="{% url 'create-post' %}" class="btn btn-warning">
+              Create Post
+            </a>
+
+            <a href="{% url 'restaurant-list' %}" class="btn btn-warning">
+              Restaurants
+            </a>
+
+            <a
+              href="{% url 'critic-dashboard' %}"
+              class="btn btn-outline-warning"
+            >
+              Critic Dashboard
+            </a>
+          </div>
+
+          <div class="nav-divider"></div>
+
+          <div class="nav-group">
+            <a
+              href="{% url 'profile' user.username %}"
+              class="btn btn-outline-info"
+            >
+              Profile
+            </a>
+          </div>
+
           {% else %}
 
           <div class="nav-group">
@@ -387,15 +461,6 @@
           <div class="nav-divider"></div>
 
           <div class="nav-group">
-            {% if user.userprofile.role == 'CRITIC' %}
-            <a
-              href="{% url 'critic-dashboard' %}"
-              class="btn btn-outline-warning"
-            >
-              Critic Dashboard
-            </a>
-            {% endif %}
-
             <a
               href="{% url 'profile' user.username %}"
               class="btn btn-outline-info"
@@ -404,7 +469,7 @@
             </a>
           </div>
 
-          {% endif %} {% else %}
+          {% endif %} {% endif %} {% endif %} {% else %}
 
           <div class="nav-group">
             <a
