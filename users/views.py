@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 from foodposts.models import FoodPost, Favorite 
 from .models import UserProfile
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 
 from .forms import (
     ProfileUpdateForm,
@@ -29,6 +31,19 @@ def register_view(request):
     }
 
     return render(request, 'users/register.html', context)
+
+class CustomLoginView(LoginView):
+
+    template_name = 'users/login.html'
+
+    def get_success_url(self):
+
+        user = self.request.user
+
+        if user.is_staff or user.is_superuser:
+            return reverse_lazy('admin-dashboard')
+
+        return reverse_lazy('feed')
 
 
 @login_required
