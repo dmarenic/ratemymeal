@@ -78,7 +78,7 @@
         <div class="mt-auto">
           <a
             href="{% url 'restaurant-detail' restaurant.id %}"
-            class="btn btn-warning w-100"
+            class="restaurant-view-btn"
           >
             View Restaurant
           </a>
@@ -237,8 +237,32 @@
     margin-bottom: 24px;
   }
 
-  .restaurant-card .btn {
-    min-height: 58px;
+  .restaurant-view-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 56px;
+
+    border-radius: 999px;
+    border: none;
+
+    background: linear-gradient(135deg, #ff8a00, #ef2f2f);
+    color: white;
+
+    font-weight: 900;
+    font-size: 1rem;
+    text-decoration: none;
+
+    box-shadow: 0 12px 24px rgba(239, 47, 47, 0.22);
+    transition: 0.25s ease;
+  }
+
+  .restaurant-view-btn:hover {
+    transform: translateY(-2px);
+    color: white;
+    box-shadow: 0 16px 30px rgba(239, 47, 47, 0.32);
   }
 
   .empty-state {
