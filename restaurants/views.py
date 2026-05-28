@@ -93,7 +93,9 @@ def create_restaurant(request):
 
         if form.is_valid():
 
-            form.save()
+            restaurant = form.save(commit=False)
+            restaurant.owner = request.user
+            restaurant.save()
 
             messages.success(request, 'Restaurant successfully created!')
 
@@ -104,6 +106,60 @@ def create_restaurant(request):
     else:
 
         form = RestaurantForm()
+
+    return render(
+        request,
+        'restaurants/create.html',
+        {
+            'form': form
+        }
+    )
+
+@login_required
+def owner_dashboard(request):
+    restaurants = Restaurant.objects.filter(owner=request.user)
+
+    return render(
+        request,
+        'restaurants/owner_dashboard.html',
+        {
+            'restaurants': restaurants
+        }
+    )
+
+@login_required
+def edit_restaurant(request, restaurant_id):
+    restaurant = Restaurant.objects.get(id=restaurant_id)
+
+    if restaurant.owner != request.user and not request.user.is_staff:
+        messages.error(request, 'You can only edit your own restaurants.')
+        return redirect(
+            'restaurant-detail',
+            restaurant_id=restaurant.id
+        )
+
+    if request.method == 'POST':
+        form = RestaurantForm(
+            request.POST,
+            request.FILES,
+            instance=restaurant
+        )
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(
+                request,
+                'Restaurant successfully updated!'
+            )
+
+            return redirect(
+                'restaurant-detail',
+                restaurant_id=restaurant.id
+            )
+
+    else:
+        form = RestaurantForm(instance=restaurant)
 
     return render(
         request,
