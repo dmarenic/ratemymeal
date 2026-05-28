@@ -34,4 +34,10 @@ urlpatterns = [
     name='edit-restaurant'
     ),
 
+    path(
+    'owner/posts/',
+    views.owner_posts,
+    name='owner-posts'
+    ),
+
 ]
