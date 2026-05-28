@@ -6,7 +6,11 @@ from .models import Restaurant
 from .forms import RestaurantForm
 
 
+@login_required
 def restaurant_list(request):
+
+    if request.user.userprofile.role == 'RESTAURANT_OWNER':
+        return redirect('restaurant-owner-dashboard')
 
     restaurants = Restaurant.objects.all()
 
@@ -33,7 +37,7 @@ def restaurant_list(request):
             if r.average_rating()
             >= float(min_rating)
 
-    ] 
+        ]
 
     context = {
         'restaurants': restaurants,
@@ -41,14 +45,12 @@ def restaurant_list(request):
         'city_filter': city_filter,
         'rating': min_rating,
     }
-    
 
     return render(
         request,
         'restaurants/list.html',
         context
     )
-
 
 
 def restaurant_detail(request, restaurant_id):
@@ -84,6 +86,9 @@ def restaurant_detail(request, restaurant_id):
 @login_required
 def create_restaurant(request):
 
+    if request.user.userprofile.role != 'RESTAURANT_OWNER':
+        return redirect('feed')
+
     if request.method == 'POST':
 
         form = RestaurantForm(
@@ -97,7 +102,10 @@ def create_restaurant(request):
             restaurant.owner = request.user
             restaurant.save()
 
-            messages.success(request, 'Restaurant successfully created!')
+            messages.success(
+                request,
+                'Restaurant successfully created!'
+            )
 
             return redirect(
                 'restaurant-list'
@@ -115,9 +123,16 @@ def create_restaurant(request):
         }
     )
 
+
 @login_required
 def owner_dashboard(request):
-    restaurants = Restaurant.objects.filter(owner=request.user)
+
+    if request.user.userprofile.role != 'RESTAURANT_OWNER':
+        return redirect('feed')
+
+    restaurants = Restaurant.objects.filter(
+        owner=request.user
+    )
 
     return render(
         request,
@@ -127,18 +142,31 @@ def owner_dashboard(request):
         }
     )
 
+
 @login_required
 def edit_restaurant(request, restaurant_id):
-    restaurant = Restaurant.objects.get(id=restaurant_id)
+
+    if request.user.userprofile.role != 'RESTAURANT_OWNER':
+        return redirect('feed')
+
+    restaurant = Restaurant.objects.get(
+        id=restaurant_id
+    )
 
     if restaurant.owner != request.user and not request.user.is_staff:
-        messages.error(request, 'You can only edit your own restaurants.')
+
+        messages.error(
+            request,
+            'You can only edit your own restaurants.'
+        )
+
         return redirect(
             'restaurant-detail',
             restaurant_id=restaurant.id
         )
 
     if request.method == 'POST':
+
         form = RestaurantForm(
             request.POST,
             request.FILES,
@@ -146,6 +174,7 @@ def edit_restaurant(request, restaurant_id):
         )
 
         if form.is_valid():
+
             form.save()
 
             messages.success(
@@ -159,7 +188,10 @@ def edit_restaurant(request, restaurant_id):
             )
 
     else:
-        form = RestaurantForm(instance=restaurant)
+
+        form = RestaurantForm(
+            instance=restaurant
+        )
 
     return render(
         request,
@@ -169,8 +201,12 @@ def edit_restaurant(request, restaurant_id):
         }
     )
 
+
 @login_required
 def owner_posts(request):
+
+    if request.user.userprofile.role != 'RESTAURANT_OWNER':
+        return redirect('feed')
 
     restaurants = Restaurant.objects.filter(
         owner=request.user
