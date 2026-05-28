@@ -168,3 +168,22 @@ def edit_restaurant(request, restaurant_id):
             'form': form
         }
     )
+
+@login_required
+def owner_posts(request):
+
+    restaurants = Restaurant.objects.filter(
+        owner=request.user
+    )
+
+    posts = FoodPost.objects.filter(
+        restaurant__in=restaurants
+    ).order_by('-created_at')
+
+    return render(
+        request,
+        'restaurants/owner_posts.html',
+        {
+            'posts': posts
+        }
+    )
