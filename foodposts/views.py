@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 
-from .forms import CommentForm, FoodPostForm, ReportForm 
+from .forms import CommentForm, FoodPostForm, ReportForm
 from .models import Comment, Cuisine, Favorite, FoodPost, Like, Report
 
 from django.contrib import messages
@@ -14,6 +14,10 @@ from django.contrib import messages
 
 @login_required
 def feed_view(request):
+
+    if request.user.userprofile.role == 'RESTAURANT_OWNER':
+        return redirect('restaurant-owner-dashboard')
+
     posts = FoodPost.objects.all().order_by('-created_at')
     cuisines = Cuisine.objects.all()
 
@@ -42,8 +46,12 @@ def feed_view(request):
 
     return render(request, 'foodposts/feed.html', context)
 
+
 @login_required
 def trending_view(request):
+
+    if request.user.userprofile.role == 'RESTAURANT_OWNER':
+        return redirect('restaurant-owner-dashboard')
 
     posts = FoodPost.objects.all()
 
@@ -67,6 +75,7 @@ def trending_view(request):
         context
     )
 
+
 @login_required
 def create_post(request):
     if request.method == 'POST':
@@ -76,19 +85,30 @@ def create_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            messages.success(request, 'Post successfully created!')
-        
+
+            messages.success(
+                request,
+                'Post successfully created!'
+            )
+
             return redirect('feed')
 
     else:
         form = FoodPostForm()
 
-    return render(request, 'foodposts/create_post.html', {'form': form})
+    return render(
+        request,
+        'foodposts/create_post.html',
+        {
+            'form': form
+        }
+    )
 
 
 @login_required
 def post_detail(request, post_id):
     post = get_object_or_404(FoodPost, id=post_id)
+
     comments = post.comments.all().order_by('-created_at')
 
     is_liked = Like.objects.filter(
@@ -102,15 +122,25 @@ def post_detail(request, post_id):
     ).exists()
 
     if request.method == 'POST':
+
         form = CommentForm(request.POST)
 
         if form.is_valid():
+
             comment = form.save(commit=False)
             comment.author = request.user
             comment.post = post
             comment.save()
-            messages.success(request, 'Comment successfully created!')
-            return redirect('post-detail', post_id=post.id)
+
+            messages.success(
+                request,
+                'Comment successfully created!'
+            )
+
+            return redirect(
+                'post-detail',
+                post_id=post.id
+            )
 
     else:
         form = CommentForm()
@@ -123,22 +153,35 @@ def post_detail(request, post_id):
         'is_favorited': is_favorited,
     }
 
-    return render(request, 'foodposts/post_detail.html', context)
+    return render(
+        request,
+        'foodposts/post_detail.html',
+        context
+    )
 
 
 @login_required
 def edit_post(request, post_id):
-    post = get_object_or_404(FoodPost, id=post_id)
+
+    post = get_object_or_404(
+        FoodPost,
+        id=post_id
+    )
 
     if request.user != post.author and not request.user.is_staff:
+
         messages.error(
             request,
             'You do not have permission to edit this post.'
         )
 
-        return redirect('post-detail', post_id=post.id)
+        return redirect(
+            'post-detail',
+            post_id=post.id
+        )
 
     if request.method == 'POST':
+
         form = FoodPostForm(
             request.POST,
             request.FILES,
@@ -146,10 +189,18 @@ def edit_post(request, post_id):
         )
 
         if form.is_valid():
+
             form.save()
 
-            messages.success(request, 'Post successfully updated!')
-            return redirect('post-detail', post_id=post.id)
+            messages.success(
+                request,
+                'Post successfully updated!'
+            )
+
+            return redirect(
+                'post-detail',
+                post_id=post.id
+            )
 
     else:
         form = FoodPostForm(instance=post)
@@ -159,32 +210,60 @@ def edit_post(request, post_id):
         'post': post,
     }
 
-    return render(request, 'foodposts/edit_post.html', context)
+    return render(
+        request,
+        'foodposts/edit_post.html',
+        context
+    )
 
 
 @login_required
 def delete_post(request, post_id):
-    post = get_object_or_404(FoodPost, id=post_id)
+
+    post = get_object_or_404(
+        FoodPost,
+        id=post_id
+    )
 
     if request.user != post.author and not request.user.is_staff:
+
         messages.error(
             request,
             'You do not have permission to delete this post.'
         )
 
-        return redirect('post-detail', post_id=post.id)
+        return redirect(
+            'post-detail',
+            post_id=post.id
+        )
 
     if request.method == 'POST':
+
         post.delete()
-        messages.success(request, 'Post successfully deleted!')
+
+        messages.success(
+            request,
+            'Post successfully deleted!'
+        )
+
         return redirect('feed')
 
-    return render(request, 'foodposts/delete_post.html', {'post': post})
+    return render(
+        request,
+        'foodposts/delete_post.html',
+        {
+            'post': post
+        }
+    )
 
 
 @login_required
 def toggle_like(request, post_id):
-    post = get_object_or_404(FoodPost, id=post_id)
+
+    post = get_object_or_404(
+        FoodPost,
+        id=post_id
+    )
 
     like = Like.objects.filter(
         user=request.user,
@@ -192,19 +271,29 @@ def toggle_like(request, post_id):
     )
 
     if like.exists():
+
         like.delete()
+
     else:
+
         Like.objects.create(
             user=request.user,
             post=post
         )
 
-    return redirect('post-detail', post_id=post.id)
+    return redirect(
+        'post-detail',
+        post_id=post.id
+    )
 
 
 @login_required
 def toggle_favorite(request, post_id):
-    post = get_object_or_404(FoodPost, id=post_id)
+
+    post = get_object_or_404(
+        FoodPost,
+        id=post_id
+    )
 
     favorite = Favorite.objects.filter(
         user=request.user,
@@ -212,18 +301,28 @@ def toggle_favorite(request, post_id):
     )
 
     if favorite.exists():
+
         favorite.delete()
+
     else:
+
         Favorite.objects.create(
             user=request.user,
             post=post
         )
 
-    return redirect('post-detail', post_id=post.id)
+    return redirect(
+        'post-detail',
+        post_id=post.id
+    )
 
 
 @login_required
 def favorite_posts(request):
+
+    if request.user.userprofile.role == 'RESTAURANT_OWNER':
+        return redirect('restaurant-owner-dashboard')
+
     favorites = Favorite.objects.filter(
         user=request.user
     ).order_by('-created_at')
@@ -232,39 +331,76 @@ def favorite_posts(request):
         'favorites': favorites
     }
 
-    return render(request, 'foodposts/favorites.html', context)
+    return render(
+        request,
+        'foodposts/favorites.html',
+        context
+    )
 
 
 @login_required
 def delete_comment(request, comment_id):
-    comment = get_object_or_404(Comment, id=comment_id)
+
+    comment = get_object_or_404(
+        Comment,
+        id=comment_id
+    )
 
     if request.user != comment.author and not request.user.is_staff:
-        return redirect('post-detail', post_id=comment.post.id)
+        return redirect(
+            'post-detail',
+            post_id=comment.post.id
+        )
 
     post_id = comment.post.id
+
     comment.delete()
-    messages.success(request, 'Comment successfully deleted!')
-    return redirect('post-detail', post_id=post_id)
+
+    messages.success(
+        request,
+        'Comment successfully deleted!'
+    )
+
+    return redirect(
+        'post-detail',
+        post_id=post_id
+    )
 
 
 @login_required
 def edit_comment(request, comment_id):
-    comment = get_object_or_404(Comment, id=comment_id)
+
+    comment = get_object_or_404(
+        Comment,
+        id=comment_id
+    )
 
     if request.user != comment.author and not request.user.is_staff:
-        return redirect('post-detail', post_id=comment.post.id)
+        return redirect(
+            'post-detail',
+            post_id=comment.post.id
+        )
 
     if request.method == 'POST':
+
         form = CommentForm(
             request.POST,
             instance=comment
         )
 
         if form.is_valid():
+
             form.save()
-            messages.success(request, 'Comment successfully updated!')
-            return redirect('post-detail', post_id=comment.post.id)
+
+            messages.success(
+                request,
+                'Comment successfully updated!'
+            )
+
+            return redirect(
+                'post-detail',
+                post_id=comment.post.id
+            )
 
     else:
         form = CommentForm(instance=comment)
@@ -274,10 +410,18 @@ def edit_comment(request, comment_id):
         'comment': comment,
     }
 
-    return render(request, 'foodposts/edit_comment.html', context)
+    return render(
+        request,
+        'foodposts/edit_comment.html',
+        context
+    )
+
 
 @login_required
 def following_feed(request):
+
+    if request.user.userprofile.role == 'RESTAURANT_OWNER':
+        return redirect('restaurant-owner-dashboard')
 
     followed_profiles = request.user.following.all()
 
@@ -299,6 +443,7 @@ def following_feed(request):
         'foodposts/following_feed.html',
         context
     )
+
 
 @login_required
 def report_post(request, post_id):
@@ -333,7 +478,11 @@ def report_post(request, post_id):
 
                 report.save()
 
-            messages.success(request, 'Post successfully reported!')
+            messages.success(
+                request,
+                'Post successfully reported!'
+            )
+
             return redirect(
                 'post-detail',
                 post_id=post.id
@@ -354,6 +503,7 @@ def report_post(request, post_id):
         context
     )
 
+
 @staff_member_required
 def admin_dashboard(request):
 
@@ -370,4 +520,3 @@ def admin_dashboard(request):
         'foodposts/admin_dashboard.html',
         context
     )
-
