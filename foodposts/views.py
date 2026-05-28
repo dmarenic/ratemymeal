@@ -79,7 +79,7 @@ def trending_view(request):
 @login_required
 def create_post(request):
     if request.method == 'POST':
-        form = FoodPostForm(request.POST, request.FILES)
+        form = FoodPostForm(request.POST, request.FILES, user=request.user)
 
         if form.is_valid():
             post = form.save(commit=False)
@@ -94,7 +94,7 @@ def create_post(request):
             return redirect('feed')
 
     else:
-        form = FoodPostForm()
+        form = FoodPostForm(user=request.user)
 
     return render(
         request,
