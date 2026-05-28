@@ -4,7 +4,7 @@
   <div class="col-lg-8">
     <div class="review-card">
       <div class="text-center mb-5">
-        <div class="critic-icon">⭐</div>
+        <div class="critic-icon"><i class="bi bi-star-fill"></i></div>
 
         <h1>Create Verified Review</h1>
 
@@ -33,6 +33,10 @@
 </div>
 
 <style>
+  .critic-icon i {
+    color: #e53935;
+  }
+
   .review-card {
     background: linear-gradient(180deg, #ffffff, #fff8f0);
 
@@ -227,6 +231,94 @@
     .critic-form textarea {
       min-height: 180px;
     }
+  }
+
+  .critic-form input[type="checkbox"] {
+    appearance: none;
+
+    width: 26px;
+    height: 26px;
+
+    border-radius: 10px;
+
+    border: 2px solid rgba(255, 122, 0, 0.25);
+
+    background: white;
+
+    cursor: pointer;
+
+    position: relative;
+
+    transition: all 0.25s ease;
+
+    box-shadow: 0 4px 14px rgba(255, 122, 0, 0.06);
+  }
+
+  .critic-form input[type="checkbox"]:hover {
+    border-color: #ff7a00;
+
+    transform: scale(1.05);
+  }
+
+  .critic-form input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #ff7a00, #ffc107);
+
+    border-color: #ff7a00;
+
+    box-shadow: 0 10px 24px rgba(255, 122, 0, 0.28);
+  }
+
+  .critic-form input[type="checkbox"]:checked::after {
+    content: "\F26E";
+
+    font-family: "bootstrap-icons";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+  }
+
+  .critic-form p:has(input[type="checkbox"]) {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 193, 7, 0.08);
+
+    border: 2px solid rgba(255, 193, 7, 0.12);
+
+    transition: all 0.25s ease;
+  }
+
+  .critic-form p:has(input[type="checkbox"]):hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(255, 122, 0, 0.2);
+  }
+
+  .critic-form p:has(input[type="checkbox"]) label {
+    margin: 0;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    color: #222;
   }
 </style>
 

@@ -10,7 +10,9 @@
 
     <div class="hero-overlay">
       <div>
-        <div class="rating-chip">⭐ {{ post.rating }}/5</div>
+        <div class="rating-chip">
+          <i class="bi bi-star-fill"></i> {{ post.rating }}/5
+        </div>
 
         <h1>{{ post.title }}</h1>
 
@@ -35,7 +37,7 @@
 
     <div class="info-grid">
       <div class="info-box">
-        🍴
+        <i class="bi bi-egg-fried"></i>
 
         <strong>Cuisine</strong>
 
@@ -43,7 +45,7 @@
       </div>
 
       <div class="info-box">
-        🏠
+        <i class="bi bi-house-fill"></i>
 
         <strong>Type</strong>
 
@@ -56,7 +58,7 @@
         href="{% url 'restaurant-detail' post.restaurant.id %}"
         class="info-box restaurant-box"
       >
-        🍽
+        <i class="bi bi-shop"></i>
 
         <strong>Restaurant</strong>
 
@@ -67,14 +69,18 @@
     </div>
 
     <div class="engagement">
-      <div>❤️ {{ post.likes.count }}</div>
+      <div><i class="bi bi-heart-fill"></i> {{ post.likes.count }}</div>
 
-      <div>💬 {{ comments.count }}</div>
+      <div><i class="bi bi-chat-left-text-fill"></i> {{ comments.count }}</div>
     </div>
 
     <div class="action-grid">
       <a href="{% url 'toggle-like' post.id %}" class="btn btn-outline-danger">
-        {% if is_liked or liked %} ❤️ Unlike {% else %} ❤️ Like {% endif %}
+        {% if is_liked or liked %}
+        <i class="bi bi-heart-fill"></i>
+        Unlike {% else %}
+        <i class="bi bi-heart"></i>
+        Like {% endif %}
       </a>
 
       <a href="{% url 'toggle-favorite' post.id %}" class="btn btn-warning">
@@ -113,7 +119,9 @@
 
 <div class="card critic-section mt-5">
   <div class="card-body">
-    <h2 class="mb-4">⭐ Verified Food Critic Reviews</h2>
+    <h2 class="mb-4">
+      <i class="bi bi-star-fill"></i> Verified Food Critic Reviews
+    </h2>
 
     {% for review in post.critic_reviews.all %}
 
@@ -177,7 +185,7 @@
 
 <div class="card comments-section mt-5">
   <div class="card-body">
-    <h2 class="mb-4">💬 Comments</h2>
+    <h2 class="mb-4"><i class="bi bi-chat-left-text-fill"></i> Comments</h2>
 
     <form method="POST">
       {% csrf_token %}
@@ -230,6 +238,50 @@
 </div>
 
 <style>
+  .rating-chip i {
+    color: #ffc107;
+    margin-right: 6px;
+  }
+
+  .info-box i {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+
+  .bi-egg-fried {
+    color: #ff7a00;
+  }
+
+  .bi-house-fill {
+    color: #4caf50;
+  }
+
+  .bi-shop {
+    color: #e53935;
+  }
+
+  .engagement i {
+    margin-right: 6px;
+  }
+
+  .bi-heart-fill {
+    color: #e53935;
+  }
+
+  .bi-chat-left-text-fill {
+    color: #8b5cf6;
+  }
+
+  .critic-section h2 i {
+    color: #ff7a00;
+    margin-right: 10px;
+  }
+
+  .comments-section h2 i {
+    color: #8b5cf6;
+    margin-right: 10px;
+  }
   .post-card {
     overflow: hidden;
     border-radius: 34px;

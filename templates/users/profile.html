@@ -15,7 +15,7 @@
 
     {% if profile_user.userprofile.location %}
     <p class="profile-location mb-3">
-      📍 {{ profile_user.userprofile.location }}
+      <i class="bi bi-geo-alt-fill"></i> {{ profile_user.userprofile.location }}
     </p>
     {% endif %}
 
@@ -75,7 +75,10 @@
 </div>
 
 <div class="section-heading mb-4">
-  <h2>User Posts</h2>
+  <h2>
+    <i class="bi bi-grid-fill"></i>
+    User Posts
+  </h2>
   <p>Meals shared by {{ profile_user.username }}</p>
 </div>
 
@@ -104,7 +107,10 @@
   {% empty %}
 
   <div class="empty-state text-center py-5">
-    <h4>No posts yet</h4>
+    <h4>
+      <i class="bi bi-emoji-frown"></i>
+      No posts yet
+    </h4>
     <p>This user has not shared any meals yet.</p>
   </div>
 
@@ -114,7 +120,10 @@
 <hr class="my-5" />
 
 <div class="section-heading mb-4">
-  <h2>Favorite Posts</h2>
+  <h2>
+    <i class="bi bi-heart-fill"></i>
+    Favorite Posts
+  </h2>
   <p>Meals this user liked the most</p>
 </div>
 
@@ -141,7 +150,10 @@
   {% empty %}
 
   <div class="empty-state text-center py-5">
-    <h4>No favorite posts yet</h4>
+    <h4>
+      <i class="bi bi-heartbreak-fill"></i>
+      No favorite posts yet
+    </h4>
     <p>This user has not added favorites yet.</p>
   </div>
 
@@ -149,6 +161,35 @@
 </div>
 
 <style>
+  .profile-location i {
+    margin-right: 6px;
+    color: #4caf50;
+  }
+
+  .section-heading h2 i {
+    margin-right: 10px;
+  }
+
+  .bi-grid-fill {
+    color: #ff7a00;
+  }
+
+  .bi-heart-fill {
+    color: #e53935;
+  }
+
+  .empty-state h4 i {
+    margin-right: 8px;
+  }
+
+  .bi-emoji-frown {
+    color: #ff7a00;
+  }
+
+  .bi-heartbreak-fill {
+    color: #e53935;
+  }
+
   .profile-hero {
     border-radius: 32px;
     background:

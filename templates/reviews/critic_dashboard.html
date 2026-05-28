@@ -2,7 +2,9 @@
 
 <section class="critic-hero mb-5">
   <div>
-    <span class="critic-badge"> ⭐ Verified Food Critic </span>
+    <span class="critic-badge">
+      <i class="bi bi-patch-check-fill"></i> Verified Food Critic
+    </span>
 
     <h1 class="critic-title">Food Critic Dashboard</h1>
 
@@ -14,7 +16,7 @@
 
 <div class="stats-card mb-5">
   <div class="stats-left">
-    <div class="stats-icon">🏆</div>
+    <div class="stats-icon"><i class="bi bi-trophy-fill"></i></div>
 
     <div>
       <div class="stats-label">Total Reviews</div>
@@ -86,7 +88,7 @@
   {% empty %}
 
   <div class="empty-state">
-    <div class="empty-icon">⭐</div>
+    <div class="empty-icon"><i class="bi bi-star-fill"></i></div>
 
     <h2>No verified reviews yet</h2>
 
@@ -101,6 +103,25 @@
 </section>
 
 <style>
+  .critic-badge i {
+    margin-right: 8px;
+    color: #ffc107;
+  }
+
+  .stats-icon i {
+    color: #ff7a00;
+    filter: drop-shadow(0 4px 12px rgba(255, 122, 0, 0.3));
+  }
+
+  .empty-icon i {
+    color: #ffc107;
+    font-size: 90px;
+  }
+
+  .stats-icon {
+    box-shadow: 0 14px 35px rgba(255, 193, 7, 0.14);
+  }
+
   .critic-hero {
     padding: 50px;
 

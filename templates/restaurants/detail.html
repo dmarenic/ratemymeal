@@ -10,11 +10,15 @@
 
     <div class="hero-overlay">
       <div>
-        <span class="restaurant-badge"> 🍽 Restaurant </span>
+        <span class="restaurant-badge">
+          <i class="bi bi-shop"></i> Restaurant
+        </span>
 
         <h1 class="restaurant-title">{{ restaurant.name }}</h1>
 
-        <p class="restaurant-location">📍 {{ restaurant.city }}</p>
+        <p class="restaurant-location">
+          <i class="bi bi-geo-alt-fill"></i> {{ restaurant.city }}
+        </p>
       </div>
     </div>
   </div>
@@ -26,13 +30,17 @@
 
     <div class="stats-grid">
       <div class="stat-box">
-        <div class="stat-number">⭐ {{ restaurant.average_rating }}/5</div>
+        <div class="stat-number">
+          <i class="bi bi-star-fill"></i> {{ restaurant.average_rating }}/5
+        </div>
 
         <span> Average Rating </span>
       </div>
 
       <div class="stat-box">
-        <div class="stat-number">🍴 {{ posts.count }}</div>
+        <div class="stat-number">
+          <i class="bi bi-chat-square-text-fill"></i> {{ posts.count }}
+        </div>
 
         <span> Reviews </span>
       </div>
@@ -60,7 +68,9 @@
   <div class="col-lg-4 col-md-6">
     <div class="review-card card h-100">
       <div class="card-body d-flex flex-column">
-        <div class="rating-badge">⭐ {{ post.rating }}/5</div>
+        <div class="rating-badge">
+          <i class="bi bi-star-fill"></i> {{ post.rating }}/5
+        </div>
 
         <h4 class="mt-3">{{ post.title }}</h4>
 
@@ -90,6 +100,33 @@
 </div>
 
 <style>
+  .restaurant-badge i {
+    margin-right: 8px;
+    color: #ffc107;
+  }
+
+  .restaurant-location i {
+    margin-right: 6px;
+    color: #ffc107;
+  }
+
+  .stat-number i {
+    margin-right: 6px;
+  }
+
+  .bi-star-fill {
+    color: #ffc107;
+  }
+
+  .bi-chat-square-text-fill {
+    color: #8b5cf6;
+  }
+
+  .rating-badge i {
+    margin-right: 6px;
+    color: #ffc107;
+  }
+
   .restaurant-hero {
     border: none;
 

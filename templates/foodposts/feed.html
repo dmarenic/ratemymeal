@@ -9,7 +9,7 @@
         <div>
 
             <span class="hero-badge">
-                🔥 Trending Meals
+                 <i class="bi bi-graph-up-arrow"></i> Trending Meals
             </span>
 
             <h1 class="hero-title">
@@ -38,7 +38,7 @@
                     type="text"
                     name="search"
                     class="form-control"
-                    placeholder="🔍 Search meals"
+                    placeholder="Search meals"
                     value="{{ request.GET.search }}"
                 >
 
@@ -139,7 +139,7 @@
 {% endif %}
 
                 <div class="rating-chip">
-                    ⭐ {{ post.rating }}/5
+                    <i class="bi bi-star-fill"></i> {{ post.rating }}/5
                 </div>
 
             </div>
@@ -156,7 +156,7 @@
                     </a>
 
                     <span class="likes">
-                        ❤️ {{ post.likes.count }}
+                        <i class="bi bi-heart-fill"></i> {{ post.likes.count }}
                     </span>
 
                 </div>
@@ -174,7 +174,7 @@
                     {% if post.post_type == 'home_made' %}
 
                     <span class="tag homemade">
-                        🏠 Home Made
+                        <i class="bi bi-house-fill"></i> Home Made
                     </span>
 
                     {% elif post.restaurant %}
@@ -183,7 +183,7 @@
                         href="{% url 'restaurant-detail' post.restaurant.id %}"
                         class="tag"
                     >
-                        🍽 {{ post.restaurant.name }}
+                        <i class="bi bi-shop"></i> {{ post.restaurant.name }}
                     </a>
 
                     {% endif %}
@@ -199,7 +199,7 @@
                 </div>
 
                 <div class="stats">
-                    💬 {{ post.comments.count }}
+                    <i class="bi bi-chat-left-text-fill"></i> {{ post.comments.count }}
                 </div>
 
                 <a
@@ -221,7 +221,7 @@
 
         <div class="empty-feed">
 
-            🍔
+            <i class="bi bi-emoji-frown"></i>
 
             <h2>
                 No meals found
@@ -286,6 +286,40 @@
 </nav>
 
 <style>
+
+    .hero-badge i{
+    margin-right:8px;
+    color:#ff7a00;
+}
+
+.rating-chip i{
+    color:#ffc107;
+    margin-right:6px;
+}
+
+.likes i{
+    color:#e53935;
+    margin-right:4px;
+}
+
+.homemade i{
+    color:#4caf50;
+    margin-right:6px;
+}
+
+.tag i{
+    margin-right:6px;
+}
+
+.stats i{
+    color:#8b5cf6;
+    margin-right:6px;
+}
+
+.empty-feed i{
+    color:#ff7a00;
+    font-size:80px;
+}
 
 .feed-hero{
     padding:48px;

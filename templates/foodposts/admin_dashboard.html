@@ -2,7 +2,10 @@
 
 <section class="dashboard-hero mb-5">
   <div>
-    <span class="dashboard-badge"> 🛡 Admin Panel </span>
+    <span class="dashboard-badge">
+      <i class="bi bi-shield-lock-fill"></i>
+      Admin Panel
+    </span>
 
     <h1 class="dashboard-title">Admin Dashboard</h1>
 
@@ -15,7 +18,9 @@
 <div class="row g-4 mb-5">
   <div class="col-lg-3 col-md-6">
     <div class="metric-card">
-      <div class="metric-icon">👥</div>
+      <div class="metric-icon">
+        <i class="bi bi-people-fill"></i>
+      </div>
 
       <h2>{{ user_count }}</h2>
 
@@ -25,7 +30,9 @@
 
   <div class="col-lg-3 col-md-6">
     <div class="metric-card">
-      <div class="metric-icon">🍽️</div>
+      <div class="metric-icon">
+        <i class="bi bi-file-earmark-post-fill"></i>
+      </div>
 
       <h2>{{ post_count }}</h2>
 
@@ -35,7 +42,9 @@
 
   <div class="col-lg-3 col-md-6">
     <div class="metric-card">
-      <div class="metric-icon">💬</div>
+      <div class="metric-icon">
+        <i class="bi bi-chat-left-text-fill"></i>
+      </div>
 
       <h2>{{ comment_count }}</h2>
 
@@ -45,7 +54,9 @@
 
   <div class="col-lg-3 col-md-6">
     <div class="metric-card warning">
-      <div class="metric-icon">🚩</div>
+      <div class="metric-icon">
+        <i class="bi bi-flag-fill"></i>
+      </div>
 
       <h2>{{ report_count }}</h2>
 
@@ -62,17 +73,29 @@
   </div>
 
   <div class="management-grid">
-    <a href="/admin/auth/user/" class="manage-btn"> 👥 Users </a>
+    <a href="/admin/auth/user/" class="manage-btn">
+      <i class="bi bi-people-fill"></i> Users
+    </a>
 
-    <a href="/admin/foodposts/foodpost/" class="manage-btn"> 🍽 Posts </a>
+    <a href="/admin/foodposts/foodpost/" class="manage-btn">
+      <i class="bi bi-file-earmark-post-fill"></i> Posts
+    </a>
 
-    <a href="/admin/foodposts/report/" class="manage-btn"> 🚩 Reports </a>
+    <a href="/admin/foodposts/report/" class="manage-btn">
+      <i class="bi bi-flag-fill"></i> Reports
+    </a>
 
-    <a href="/admin/foodposts/comment/" class="manage-btn"> 💬 Comments </a>
+    <a href="/admin/foodposts/comment/" class="manage-btn">
+      <i class="bi bi-chat-left-text-fill"></i> Comments
+    </a>
 
-    <a href="/admin/foodposts/cuisine/" class="manage-btn"> 🍜 Cuisines </a>
+    <a href="/admin/foodposts/cuisine/" class="manage-btn">
+      <i class="bi bi-cup-straw"></i> Cuisines
+    </a>
 
-    <a href="/admin/reviews/criticreview/" class="manage-btn"> ⭐ Reviews </a>
+    <a href="/admin/reviews/criticreview/" class="manage-btn">
+      <i class="bi bi-star-fill"></i> Reviews
+    </a>
   </div>
 </section>
 
@@ -93,7 +116,7 @@
         <h4>{{ report.post.title }}</h4>
       </div>
 
-      <div class="report-badge">🚩 Report</div>
+      <div class="report-badge"><i class="bi bi-flag-fill"></i> Report</div>
     </div>
 
     <div class="report-content">
@@ -120,7 +143,7 @@
   {% empty %}
 
   <div class="empty-state">
-    <div class="empty-icon">✅</div>
+    <div class="empty-icon"><i class="bi bi-check-circle-fill"></i></div>
 
     <h3>No reports yet</h3>
 
@@ -131,6 +154,38 @@
 </section>
 
 <style>
+  .metric-icon i {
+    font-size: 42px;
+  }
+
+  .bi-people-fill {
+    color: #3b82f6;
+  }
+
+  .bi-file-earmark-post-fill {
+    color: #ff7a00;
+  }
+
+  .bi-chat-left-text-fill {
+    color: #8b5cf6;
+  }
+
+  .bi-flag-fill {
+    color: #e53935;
+  }
+
+  .manage-btn i {
+    margin-right: 10px;
+    font-size: 1.1rem;
+  }
+
+  .report-badge i {
+    margin-right: 6px;
+  }
+
+  .empty-icon i {
+    color: #22c55e;
+  }
   .dashboard-hero {
     padding: 50px;
 

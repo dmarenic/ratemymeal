@@ -4,7 +4,10 @@
   <div class="row align-items-center">
     <div class="col-lg-6">
       <div class="hero-content">
-        <span class="hero-badge"> 🔥 Trending Meals Daily </span>
+        <span class="hero-badge">
+          <i class="bi bi-graph-up-arrow"></i>
+          Trending Meals Daily
+        </span>
 
         <h1 class="hero-title">Discover. Share. Taste.</h1>
 
@@ -25,13 +28,21 @@
 
     <div class="col-lg-6">
       <div class="food-showcase">
-        <div class="food-card food-main">🍔</div>
+        <div class="food-card food-main">
+          <i class="bi bi-cup-hot-fill"></i>
+        </div>
 
-        <div class="food-card food-small one">🍕</div>
+        <div class="food-card food-small one">
+          <i class="bi bi-egg-fried"></i>
+        </div>
 
-        <div class="food-card food-small two">🍣</div>
+        <div class="food-card food-small two">
+          <i class="bi bi-cake2-fill"></i>
+        </div>
 
-        <div class="food-card food-small three">🍩</div>
+        <div class="food-card food-small three">
+          <i class="bi bi-cup-straw"></i>
+        </div>
       </div>
     </div>
   </div>
@@ -41,7 +52,9 @@
   <div class="row g-4">
     <div class="col-md-4">
       <div class="feature-card">
-        <div class="feature-icon">📷</div>
+        <div class="feature-icon">
+          <i class="bi bi-camera-fill"></i>
+        </div>
 
         <h4>Share Meals</h4>
 
@@ -51,7 +64,9 @@
 
     <div class="col-md-4">
       <div class="feature-card">
-        <div class="feature-icon">⭐</div>
+        <div class="feature-icon">
+          <i class="bi bi-bookmark-heart-fill"></i>
+        </div>
 
         <h4>Discover Favorites</h4>
 
@@ -61,7 +76,9 @@
 
     <div class="col-md-4">
       <div class="feature-card">
-        <div class="feature-icon">🍽️</div>
+        <div class="feature-icon">
+          <i class="bi bi-shop"></i>
+        </div>
 
         <h4>Explore Restaurants</h4>
 
@@ -76,6 +93,26 @@
 </section>
 
 <style>
+  .hero-badge i {
+    margin-right: 8px;
+    color: #ff7a00;
+  }
+
+  .feature-icon i {
+    font-size: 56px;
+  }
+
+  .bi-camera-fill {
+    color: #3b82f6;
+  }
+
+  .bi-bookmark-heart-fill {
+    color: #e53935;
+  }
+
+  .bi-shop {
+    color: #22c55e;
+  }
   .hero {
     padding-top: 50px;
   }
@@ -183,17 +220,63 @@
 
     justify-content: center;
 
-    background: white;
+    background: rgba(255, 255, 255, 0.82);
 
-    border-radius: 30px;
+    backdrop-filter: blur(18px);
 
-    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.08);
+    -webkit-backdrop-filter: blur(18px);
 
-    transition: 0.3s;
+    border-radius: 34px;
+
+    border: 1px solid rgba(255, 122, 0, 0.08);
+
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.3s ease;
   }
 
   .food-card:hover {
-    transform: scale(1.06);
+    transform: translateY(-10px) scale(1.06);
+
+    box-shadow: 0 40px 80px rgba(255, 122, 0, 0.16);
+  }
+
+  .food-main {
+    animation: floatMain 5s ease-in-out infinite;
+  }
+
+  .food-small {
+    animation: floatSmall 4s ease-in-out infinite;
+  }
+
+  .food-small.two {
+    animation-delay: 1s;
+  }
+
+  .food-small.three {
+    animation-delay: 2s;
+  }
+
+  @keyframes floatMain {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+
+  @keyframes floatSmall {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
   }
 
   .food-main {
@@ -300,6 +383,36 @@
     .hero-stats {
       justify-content: center;
     }
+  }
+
+  .food-card i {
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.08));
+  }
+
+  .food-main i {
+    font-size: 150px;
+
+    background: linear-gradient(135deg, #ff7a00, #e53935);
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+  }
+
+  .food-small i {
+    font-size: 58px;
+  }
+
+  .food-small.one i {
+    color: #ff9800;
+  }
+
+  .food-small.two i {
+    color: #e53935;
+  }
+
+  .food-small.three i {
+    color: #8b5cf6;
   }
 </style>
 

@@ -4,7 +4,7 @@
   <div class="col-lg-7">
     <div class="report-card">
       <div class="text-center mb-5">
-        <div class="report-icon">🚩</div>
+        <div class="report-icon"><i class="bi bi-flag-fill"></i></div>
 
         <h1>Report Post</h1>
 
@@ -38,6 +38,10 @@
 </div>
 
 <style>
+  .report-icon i {
+    color: #e53935;
+  }
+
   .report-card {
     background: linear-gradient(180deg, #ffffff, #fff8f0);
 
@@ -183,49 +187,63 @@
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 16px;
+    gap: 18px;
 
     margin-top: 40px;
   }
 
-  .btn-danger {
-    min-height: 66px;
+  .action-zone .btn {
+    min-height: 68px;
 
-    border: none;
-
-    border-radius: 20px;
+    border-radius: 22px;
 
     font-size: 1.05rem;
 
     font-weight: 900;
 
-    background: linear-gradient(135deg, #e53935, #c62828);
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: all 0.25s ease;
+  }
+
+  .btn-danger {
+    border: none;
+
+    background: linear-gradient(135deg, #ef2f2f, #c62828);
+
+    color: white;
 
     box-shadow: 0 18px 40px rgba(229, 57, 53, 0.28);
   }
 
   .btn-danger:hover {
     transform: translateY(-3px) scale(1.02);
+
+    box-shadow: 0 24px 50px rgba(229, 57, 53, 0.35);
   }
 
   .btn-outline-light {
-    min-height: 66px;
-
-    border-radius: 20px;
-
     background: white;
 
     border: 2px solid rgba(0, 0, 0, 0.08);
 
-    font-weight: 800;
-
     color: #222;
+
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
   }
 
   .btn-outline-light:hover {
     background: #fff8f0;
 
-    transform: translateY(-2px);
+    border-color: rgba(255, 122, 0, 0.18);
+
+    transform: translateY(-3px) scale(1.02);
+
+    color: #222;
   }
 
   @media (max-width: 768px) {
