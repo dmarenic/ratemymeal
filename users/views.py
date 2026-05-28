@@ -5,6 +5,7 @@ from foodposts.models import FoodPost, Favorite
 from .models import UserProfile
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from .forms import (
     ProfileUpdateForm,
@@ -21,6 +22,7 @@ def register_view(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Account successfully created! You can now log in.')
             return redirect('login')
 
     else:
@@ -36,9 +38,23 @@ class CustomLoginView(LoginView):
 
     template_name = 'users/login.html'
 
+    def form_invalid(self, form):
+
+        messages.error(
+            self.request,
+            'Invalid username or password.'
+        )
+
+        return super().form_invalid(form)
+
     def get_success_url(self):
 
         user = self.request.user
+
+        messages.success(
+            self.request,
+            f'Welcome back, {user.username}!'
+        )
 
         if user.is_staff or user.is_superuser:
             return reverse_lazy('admin-dashboard')
@@ -141,12 +157,14 @@ def toggle_follow(request, username):
         profile.followers.remove(
             request.user
         )
+        messages.info(request, f'You unfollowed {profile.user.username}.')
 
     else:
 
         profile.followers.add(
             request.user
         )
+        messages.success(request, f'You are now following {profile.user.username}.')
 
     return redirect(
         'profile',

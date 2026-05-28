@@ -9,6 +9,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .forms import CommentForm, FoodPostForm, ReportForm 
 from .models import Comment, Cuisine, Favorite, FoodPost, Like, Report
 
+from django.contrib import messages
+
 
 @login_required
 def feed_view(request):
@@ -74,7 +76,8 @@ def create_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-
+            messages.success(request, 'Post successfully created!')
+        
             return redirect('feed')
 
     else:
@@ -106,7 +109,7 @@ def post_detail(request, post_id):
             comment.author = request.user
             comment.post = post
             comment.save()
-
+            messages.success(request, 'Comment successfully created!')
             return redirect('post-detail', post_id=post.id)
 
     else:
@@ -145,6 +148,7 @@ def edit_post(request, post_id):
         if form.is_valid():
             form.save()
 
+            messages.success(request, 'Post successfully updated!')
             return redirect('post-detail', post_id=post.id)
 
     else:
@@ -172,7 +176,7 @@ def delete_post(request, post_id):
 
     if request.method == 'POST':
         post.delete()
-
+        messages.success(request, 'Post successfully deleted!')
         return redirect('feed')
 
     return render(request, 'foodposts/delete_post.html', {'post': post})
@@ -240,7 +244,7 @@ def delete_comment(request, comment_id):
 
     post_id = comment.post.id
     comment.delete()
-
+    messages.success(request, 'Comment successfully deleted!')
     return redirect('post-detail', post_id=post_id)
 
 
@@ -259,7 +263,7 @@ def edit_comment(request, comment_id):
 
         if form.is_valid():
             form.save()
-
+            messages.success(request, 'Comment successfully updated!')
             return redirect('post-detail', post_id=comment.post.id)
 
     else:
@@ -329,6 +333,7 @@ def report_post(request, post_id):
 
                 report.save()
 
+            messages.success(request, 'Post successfully reported!')
             return redirect(
                 'post-detail',
                 post_id=post.id

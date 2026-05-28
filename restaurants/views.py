@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from foodposts.models import FoodPost
-
+from django.contrib import messages
 from .models import Restaurant
 from .forms import RestaurantForm
 
@@ -94,6 +94,8 @@ def create_restaurant(request):
         if form.is_valid():
 
             form.save()
+
+            messages.success(request, 'Restaurant successfully created!')
 
             return redirect(
                 'restaurant-list'

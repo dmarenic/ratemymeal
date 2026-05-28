@@ -6,6 +6,8 @@ from foodposts.models import FoodPost
 from .forms import CriticReviewForm
 from .models import CriticReview
 
+from django.contrib import messages
+
 
 def critic_required(user):
     return (
@@ -56,7 +58,7 @@ def create_critic_review(request, post_id):
             review.critic = request.user
             review.post = post
             review.save()
-
+            messages.success(request, 'Review successfully added!')
             return redirect('post-detail', post_id=post.id)
 
     else:
