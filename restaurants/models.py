@@ -1,16 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-owner = models.ForeignKey(
- User,
- on_delete=models.CASCADE,
- related_name='owned_restaurants',
- null=True,
- blank=True
-)
-
 
 class Restaurant(models.Model):
+
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='owned_restaurants',
+        null=True,
+        blank=True
+    )
 
     name = models.CharField(
         max_length=255
@@ -43,10 +43,10 @@ class Restaurant(models.Model):
 
         total = sum(post.rating for post in posts)
 
-        return round(total / posts.count(), 1)
+        return round(
+            total / posts.count(),
+            1
+        )
 
     def __str__(self):
         return self.name
-    
-    
-

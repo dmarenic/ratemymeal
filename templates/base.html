@@ -199,6 +199,10 @@
         padding:0.65rem 1.4rem;
       }
 
+      .logout-form{
+        margin:0;
+      }
+
       .container.py-5{
         padding-top:3.5rem!important;
         padding-bottom:4rem!important;
@@ -366,6 +370,21 @@
                   Admin Dashboard
                 </a>
 
+                <form
+                  method="POST"
+                  action="{% url 'logout' %}"
+                  class="logout-form"
+                >
+                  {% csrf_token %}
+
+                  <button
+                    type="submit"
+                    class="btn btn-outline-danger"
+                  >
+                    Logout
+                  </button>
+                </form>
+
               </div>
 
             {% else %}
@@ -402,12 +421,20 @@
                     Profile
                   </a>
 
-                  <a
-                    href="{% url 'logout' %}"
-                    class="btn btn-outline-danger"
+                  <form
+                    method="POST"
+                    action="{% url 'logout' %}"
+                    class="logout-form"
                   >
-                    Logout
-                  </a>
+                    {% csrf_token %}
+
+                    <button
+                      type="submit"
+                      class="btn btn-outline-danger"
+                    >
+                      Logout
+                    </button>
+                  </form>
 
                 </div>
 
@@ -483,12 +510,20 @@
                     Profile
                   </a>
 
-                  <a
-                    href="{% url 'logout' %}"
-                    class="btn btn-outline-danger"
+                  <form
+                    method="POST"
+                    action="{% url 'logout' %}"
+                    class="logout-form"
                   >
-                    Logout
-                  </a>
+                    {% csrf_token %}
+
+                    <button
+                      type="submit"
+                      class="btn btn-outline-danger"
+                    >
+                      Logout
+                    </button>
+                  </form>
 
                 </div>
 
@@ -557,12 +592,20 @@
                     Profile
                   </a>
 
-                  <a
-                    href="{% url 'logout' %}"
-                    class="btn btn-outline-danger"
+                  <form
+                    method="POST"
+                    action="{% url 'logout' %}"
+                    class="logout-form"
                   >
-                    Logout
-                  </a>
+                    {% csrf_token %}
+
+                    <button
+                      type="submit"
+                      class="btn btn-outline-danger"
+                    >
+                      Logout
+                    </button>
+                  </form>
 
                 </div>
 
