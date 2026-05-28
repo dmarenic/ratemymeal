@@ -1,4 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+owner = models.ForeignKey(
+ User,
+ on_delete=models.CASCADE,
+ related_name='owned_restaurants',
+ null=True,
+ blank=True
+)
 
 
 class Restaurant(models.Model):
