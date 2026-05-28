@@ -22,4 +22,16 @@ urlpatterns = [
         name='create-restaurant'
     ),
 
+    path(
+    'owner/dashboard/',
+    views.owner_dashboard,
+    name='restaurant-owner-dashboard'
+    ),
+
+    path(
+    '<int:restaurant_id>/edit/',
+    views.edit_restaurant,
+    name='edit-restaurant'
+    ),
+
 ]
