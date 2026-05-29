@@ -20,7 +20,19 @@
       <form method="POST">
         {% csrf_token %}
 
-        <div class="report-form">{{ form.as_p }}</div>
+        <div class="report-form">
+          {% for field in form %}
+          <div class="mb-4">
+            <label for="{{ field.id_for_label }}"> {{ field.label }} </label>
+
+            {{ field }} {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+            {% endif %} {% for error in field.errors %}
+            <div class="text-danger small mt-2">{{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
 
         <div class="action-zone">
           <button class="btn btn-danger">Submit Report</button>

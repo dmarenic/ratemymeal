@@ -14,7 +14,19 @@
       <form method="POST">
         {% csrf_token %}
 
-        <div class="comment-form">{{ form.as_p }}</div>
+        <div class="comment-form">
+          {% for field in form %}
+          <div class="mb-4">
+            <label for="{{ field.id_for_label }}"> {{ field.label }} </label>
+
+            {{ field }} {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+            {% endif %} {% for error in field.errors %}
+            <div class="text-danger small mt-2">{{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
 
         <div class="d-grid mt-5">
           <button class="btn btn-warning">Save Changes</button>
