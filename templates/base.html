@@ -398,14 +398,6 @@
             >
               Profile
             </a>
-
-            <form method="post" action="{% url 'logout' %}" class="logout-form">
-              {% csrf_token %}
-
-              <button type="submit" class="btn btn-outline-danger">
-                Logout
-              </button>
-            </form>
           </div>
 
           {% elif user.userprofile.role == 'CRITIC' %}
@@ -454,14 +446,6 @@
             >
               Profile
             </a>
-
-            <form method="post" action="{% url 'logout' %}" class="logout-form">
-              {% csrf_token %}
-
-              <button type="submit" class="btn btn-outline-danger">
-                Logout
-              </button>
-            </form>
           </div>
 
           {% else %}
@@ -503,14 +487,6 @@
             >
               Profile
             </a>
-
-            <form method="post" action="{% url 'logout' %}" class="logout-form">
-              {% csrf_token %}
-
-              <button type="submit" class="btn btn-outline-danger">
-                Logout
-              </button>
-            </form>
           </div>
 
           {% endif %} {% endif %} {% else %}

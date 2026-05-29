@@ -6,7 +6,7 @@ from .models import UserProfile
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib import messages
-
+from django.views.decorators.http import require_POST
 from .forms import (
     ProfileUpdateForm,
     RegisterForm,
@@ -111,6 +111,7 @@ def edit_profile(request):
 
 
 @login_required
+@require_POST
 def toggle_follow(request, username):
 
     profile = get_object_or_404(UserProfile, user__username=username)

@@ -22,11 +22,11 @@
     <p class="profile-bio mx-auto">{{ profile_user.userprofile.bio }}</p>
 
     <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
-      {% if request.user != profile.user %}
+      {% if request.user != profile_user %}
 
       <form
-        method="POST"
-        action="{% url 'toggle-follow' profile.user.username %}"
+        method="post"
+        action="{% url 'toggle-follow' profile_user.username %}"
       >
         {% csrf_token %}
 
@@ -41,7 +41,7 @@
         Edit Profile
       </a>
 
-      <form method="POST" action="{% url 'logout' %}">
+      <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button class="btn btn-danger px-5">Logout</button>
       </form>

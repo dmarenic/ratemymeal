@@ -75,17 +75,21 @@
     </div>
 
     <div class="action-grid">
-      <a href="{% url 'toggle-like' post.id %}" class="btn btn-outline-danger">
-        {% if is_liked or liked %}
-        <i class="bi bi-heart-fill"></i>
-        Unlike {% else %}
-        <i class="bi bi-heart"></i>
-        Like {% endif %}
-      </a>
+      <form method="post" action="{% url 'toggle-like' post.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger w-100">
+          {% if is_liked or liked %}
+          <i class="bi bi-heart-fill"></i> Unlike {% else %}
+          <i class="bi bi-heart"></i> Like {% endif %}
+        </button>
+      </form>
 
-      <a href="{% url 'toggle-favorite' post.id %}" class="btn btn-warning">
-        {% if is_favorited or favorited %} Saved {% else %} Save {% endif %}
-      </a>
+      <form method="post" action="{% url 'toggle-favorite' post.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning w-100">
+          {% if is_favorited or favorited %} Saved {% else %} Save {% endif %}
+        </button>
+      </form>
 
       <a href="{% url 'report-post' post.id %}" class="btn btn-outline-dark">
         Report
@@ -215,12 +219,14 @@
             Edit
           </a>
 
-          <a
-            href="{% url 'delete-comment' comment.id %}"
-            class="btn btn-sm btn-danger"
+          <form
+            method="post"
+            action="{% url 'delete-comment' comment.id %}"
+            style="display: inline"
           >
-            Delete
-          </a>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
         </div>
 
         {% endif %}
