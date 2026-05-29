@@ -45,7 +45,6 @@ def restaurant_list(request):
 def restaurant_detail(request, restaurant_id):
 
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-
     if (
         request.user.userprofile.role == "RESTAURANT_OWNER"
         and restaurant.owner != request.user
@@ -118,11 +117,12 @@ def edit_restaurant(request, restaurant_id):
 
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
 
-    if restaurant.owner != request.user and not request.user.is_staff:
-
+    if (
+        request.user.userprofile.role == "RESTAURANT_OWNER"
+        and restaurant.owner != request.user
+    ):
         messages.error(request, "You can only edit your own restaurants.")
-
-        return redirect("restaurant-detail", restaurant_id=restaurant.id)
+        return redirect("restaurant-owner-dashboard")
 
     if request.method == "POST":
 
