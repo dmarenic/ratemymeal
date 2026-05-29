@@ -2,6 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="RateMyMeal is a platform for sharing food experiences, rating meals, and discovering restaurants."
+    />
+    <meta
+      name="keywords"
+      content="food, restaurant, review, meals, rating, critic"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RateMyMeal</title>
 
@@ -21,677 +29,548 @@
     />
 
     <style>
-
-      .navbar-brand i{
-        color:var(--primary);
-        margin-right:8px;
+      .navbar-brand i {
+        color: var(--primary);
+        margin-right: 8px;
       }
 
-      .nav-group .btn{
-        min-height:46px;
+      .nav-group .btn {
+        min-height: 46px;
       }
 
-      .btn{
-        position:relative;
-        overflow:hidden;
-      }
-
-      .btn-warning,
-      .btn-primary,
-      .btn-danger{
-        transition:all 0.25s ease;
-      }
-
-      .card{
-        border:1px solid rgba(255,122,0,0.04);
-      }
-
-      :root{
-        --primary:#ff7a00;
-        --primary-dark:#e53935;
-        --secondary:#ffc107;
-        --fresh:#4caf50;
-        --cream:#fff8f0;
-        --text-dark:#1f1f1f;
-        --text-muted:#6b6b6b;
-        --card-shadow:0 14px 35px rgba(0,0,0,0.08);
-        --card-shadow-hover:0 22px 55px rgba(229,57,53,0.18);
-      }
-
-      body{
-        font-family:'Inter',sans-serif;
-        background:var(--cream);
-        color:var(--text-dark);
-      }
-
-      .navbar{
-        background:rgba(255,248,240,0.96)!important;
-        backdrop-filter:blur(14px);
-        box-shadow:0 8px 30px rgba(0,0,0,0.06);
-        border-bottom:1px solid rgba(255,122,0,0.12);
-      }
-
-      .navbar .container{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:28px;
-      }
-
-      .navbar-brand{
-        color:var(--primary-dark)!important;
-        font-size:1.55rem;
-        letter-spacing:-0.5px;
-        white-space:nowrap;
-      }
-
-      .navbar-brand::before{
-        content:' ';
-      }
-
-      .nav-actions{
-        display:flex;
-        align-items:center;
-        justify-content:flex-end;
-        flex-wrap:wrap;
-        gap:10px;
-      }
-
-      .nav-group{
-        display:flex;
-        align-items:center;
-        gap:10px;
-      }
-
-      .nav-divider{
-        width:1px;
-        height:34px;
-        background:rgba(31,31,31,0.12);
-        margin:0 4px;
-      }
-
-      .btn{
-        border-radius:999px;
-        font-weight:700;
-        padding:0.65rem 1.15rem;
-        transition:all 240ms ease;
-        border-width:2px;
-        white-space:nowrap;
-      }
-
-      .btn:hover{
-        transform:translateY(-2px) scale(1.03);
-      }
-
-      .btn:active{
-        transform:translateY(0) scale(0.97);
+      .btn {
+        position: relative;
+        overflow: hidden;
       }
 
       .btn-warning,
       .btn-primary,
-      .btn-danger{
-        background:linear-gradient(
+      .btn-danger {
+        transition: all 0.25s ease;
+      }
+
+      .card {
+        border: 1px solid rgba(255, 122, 0, 0.04);
+      }
+
+      :root {
+        --primary: #ff7a00;
+        --primary-dark: #e53935;
+        --secondary: #ffc107;
+        --fresh: #4caf50;
+        --cream: #fff8f0;
+        --text-dark: #1f1f1f;
+        --text-muted: #6b6b6b;
+        --card-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
+        --card-shadow-hover: 0 22px 55px rgba(229, 57, 53, 0.18);
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--cream);
+        color: var(--text-dark);
+      }
+
+      .navbar {
+        background: rgba(255, 248, 240, 0.96) !important;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid rgba(255, 122, 0, 0.12);
+      }
+
+      .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+      }
+
+      .navbar-brand {
+        color: var(--primary-dark) !important;
+        font-size: 1.55rem;
+        letter-spacing: -0.5px;
+        white-space: nowrap;
+      }
+
+      .navbar-brand::before {
+        content: " ";
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .nav-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav-divider {
+        width: 1px;
+        height: 34px;
+        background: rgba(31, 31, 31, 0.12);
+        margin: 0 4px;
+      }
+
+      .btn {
+        border-radius: 999px;
+        font-weight: 700;
+        padding: 0.65rem 1.15rem;
+        transition: all 240ms ease;
+        border-width: 2px;
+        white-space: nowrap;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px) scale(1.03);
+      }
+
+      .btn:active {
+        transform: translateY(0) scale(0.97);
+      }
+
+      .btn-warning,
+      .btn-primary,
+      .btn-danger {
+        background: linear-gradient(
           135deg,
           var(--primary),
           var(--primary-dark)
         );
 
-        border:none;
-        color:#fff!important;
-        box-shadow:0 10px 22px rgba(255,122,0,0.28);
+        border: none;
+        color: #fff !important;
+        box-shadow: 0 10px 22px rgba(255, 122, 0, 0.28);
       }
 
       .btn-warning:hover,
       .btn-primary:hover,
-      .btn-danger:hover{
-        background:linear-gradient(
+      .btn-danger:hover {
+        background: linear-gradient(
           135deg,
           var(--primary-dark),
           var(--primary)
         );
 
-        box-shadow:0 14px 32px rgba(229,57,53,0.35);
+        box-shadow: 0 14px 32px rgba(229, 57, 53, 0.35);
       }
 
       .btn-outline-light,
       .btn-outline-info,
       .btn-outline-warning,
-      .btn-outline-danger{
-        color:var(--text-dark);
-        border-color:rgba(31,31,31,0.14);
-        background:#fff;
+      .btn-outline-danger {
+        color: var(--text-dark);
+        border-color: rgba(31, 31, 31, 0.14);
+        background: #fff;
       }
 
       .btn-outline-light:hover,
       .btn-outline-info:hover,
       .btn-outline-warning:hover,
-      .btn-outline-danger:hover{
-        background:var(--primary);
-        color:#fff;
-        border-color:var(--primary);
+      .btn-outline-danger:hover {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
       }
 
-      .btn-light{
-        background:#fff;
-        color:var(--primary-dark);
-        border:2px solid rgba(229,57,53,0.18);
+      .btn-light {
+        background: #fff;
+        color: var(--primary-dark);
+        border: 2px solid rgba(229, 57, 53, 0.18);
       }
 
-      .auth-register{
-        background:linear-gradient(
+      .auth-register {
+        background: linear-gradient(
           135deg,
           var(--primary),
           var(--primary-dark)
         );
 
-        color:white!important;
-        border:none;
-        padding:0.65rem 1.4rem;
-        box-shadow:0 6px 16px rgba(255,122,0,0.16);
-        transform:none!important;
+        color: white !important;
+        border: none;
+        padding: 0.65rem 1.4rem;
+        box-shadow: 0 6px 16px rgba(255, 122, 0, 0.16);
+        transform: none !important;
       }
 
-      .auth-register:hover{
-        box-shadow:0 10px 22px rgba(255,122,0,0.2);
+      .auth-register:hover {
+        box-shadow: 0 10px 22px rgba(255, 122, 0, 0.2);
       }
 
-      .auth-login{
-        padding:0.65rem 1.4rem;
+      .auth-login {
+        padding: 0.65rem 1.4rem;
       }
 
-      .logout-form{
-        margin:0;
+      .logout-form {
+        margin: 0;
       }
 
-      .container.py-5{
-        padding-top:3.5rem!important;
-        padding-bottom:4rem!important;
+      .container.py-5 {
+        padding-top: 3.5rem !important;
+        padding-bottom: 4rem !important;
       }
 
       h1,
       h2,
       h3,
       h4,
-      h5{
-        font-weight:800;
-        letter-spacing:-0.04em;
-        color:var(--text-dark);
+      h5 {
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        color: var(--text-dark);
       }
 
-      p{
-        color:var(--text-muted);
+      p {
+        color: var(--text-muted);
       }
 
-      .card{
-        border:none;
-        border-radius:20px;
-        overflow:hidden;
-        background:#fff;
-        box-shadow:var(--card-shadow);
+      .card {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: var(--card-shadow);
         transition:
           transform 260ms ease,
           box-shadow 260ms ease;
       }
 
-      .card:hover{
-        transform:translateY(-8px) scale(1.015);
-        box-shadow:var(--card-shadow-hover);
+      .card:hover {
+        transform: translateY(-8px) scale(1.015);
+        box-shadow: var(--card-shadow-hover);
       }
 
-      .card-img-top{
-        width:100%;
-        height:280px;
-        object-fit:cover;
-        transition:transform 300ms ease;
+      .card-img-top {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        transition: transform 300ms ease;
       }
 
-      .card:hover .card-img-top{
-        transform:scale(1.05);
+      .card:hover .card-img-top {
+        transform: scale(1.05);
       }
 
-      .card-body{
-        padding:1.4rem;
+      .card-body {
+        padding: 1.4rem;
       }
 
-      .card-title{
-        font-size:1.25rem;
-        font-weight:800;
-        margin-bottom:0.5rem;
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
       }
 
-      .card-text{
-        font-size:0.95rem;
-        line-height:1.6;
+      .card-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
       }
 
       .price,
-      .food-price{
-        display:inline-block;
-        color:var(--primary-dark);
-        font-size:1.35rem;
-        font-weight:800;
-        margin:0.4rem 0 0.8rem;
+      .food-price {
+        display: inline-block;
+        color: var(--primary-dark);
+        font-size: 1.35rem;
+        font-weight: 800;
+        margin: 0.4rem 0 0.8rem;
       }
 
       .badge,
       .tag,
-      .cuisine-badge{
-        border-radius:999px;
-        background:rgba(76,175,80,0.12)!important;
-        color:var(--fresh)!important;
-        font-weight:700;
-        padding:0.45rem 0.75rem;
+      .cuisine-badge {
+        border-radius: 999px;
+        background: rgba(76, 175, 80, 0.12) !important;
+        color: var(--fresh) !important;
+        font-weight: 700;
+        padding: 0.45rem 0.75rem;
       }
 
       .form-control,
-      .form-select{
-        border-radius:14px;
-        padding:0.8rem 1rem;
-        border:2px solid rgba(31,31,31,0.08);
-        transition:all 220ms ease;
+      .form-select {
+        border-radius: 14px;
+        padding: 0.8rem 1rem;
+        border: 2px solid rgba(31, 31, 31, 0.08);
+        transition: all 220ms ease;
       }
 
       .form-control:focus,
-      .form-select:focus{
-        border-color:var(--primary);
-        box-shadow:0 0 0 0.25rem rgba(255,122,0,0.18);
+      .form-select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.25rem rgba(255, 122, 0, 0.18);
       }
 
-      a{
-        text-decoration:none;
+      a {
+        text-decoration: none;
       }
 
-      .premium-section{
-        background:#fff;
-        border-radius:24px;
-        padding:2rem;
-        box-shadow:var(--card-shadow);
+      .premium-section {
+        background: #fff;
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
       }
 
-      @media (max-width:992px){
-
-        .navbar .container{
-          flex-direction:column;
-          align-items:stretch;
-          gap:1rem;
+      @media (max-width: 992px) {
+        .navbar .container {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 1rem;
         }
 
-        .navbar-brand{
-          text-align:center;
+        .navbar-brand {
+          text-align: center;
         }
 
         .nav-actions,
-        .nav-group{
-          width:100%;
-          justify-content:center;
-          flex-wrap:wrap;
+        .nav-group {
+          width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
         }
 
-        .nav-divider{
-          display:none;
+        .nav-divider {
+          display: none;
         }
 
-        .card-img-top{
-          height:230px;
+        .card-img-top {
+          height: 230px;
         }
-
       }
-
     </style>
   </head>
 
   <body>
-
     <nav class="navbar navbar-expand-lg py-3">
-
       <div class="container">
-
         <a class="navbar-brand fw-bold" href="/feed/">
           <i class="bi bi-shop"></i>
           RateMyMeal
         </a>
 
         <div class="nav-actions">
+          {% if user.is_authenticated %} {% if user.is_staff %}
 
-          {% if user.is_authenticated %}
+          <div class="nav-group">
+            <a href="/admin/" class="btn btn-danger"> Admin </a>
 
-            {% if user.is_staff %}
+            <a
+              href="{% url 'admin-dashboard' %}"
+              class="btn btn-outline-danger"
+            >
+              Admin Dashboard
+            </a>
 
-              <div class="nav-group">
+            <form method="post" action="{% url 'logout' %}" class="logout-form">
+              {% csrf_token %}
 
-                <a href="/admin/" class="btn btn-danger">
-                  Admin
-                </a>
+              <button type="submit" class="btn btn-outline-danger">
+                Logout
+              </button>
+            </form>
+          </div>
 
-                <a
-                  href="{% url 'admin-dashboard' %}"
-                  class="btn btn-outline-danger"
-                >
-                  Admin Dashboard
-                </a>
+          {% else %} {% if user.userprofile.role == 'RESTAURANT_OWNER' %}
 
-                <form
-                  method="POST"
-                  action="{% url 'logout' %}"
-                  class="logout-form"
-                >
-                  {% csrf_token %}
+          <div class="nav-group">
+            <a
+              href="{% url 'restaurant-owner-dashboard' %}"
+              class="btn btn-outline-warning"
+            >
+              Owner Dashboard
+            </a>
 
-                  <button
-                    type="submit"
-                    class="btn btn-outline-danger"
-                  >
-                    Logout
-                  </button>
-                </form>
+            <a href="{% url 'owner-posts' %}" class="btn btn-outline-light">
+              My Restaurant Posts
+            </a>
 
-              </div>
+            <a href="{% url 'create-post' %}" class="btn btn-warning">
+              Create Post
+            </a>
 
-            {% else %}
+            <a
+              href="{% url 'profile' user.username %}"
+              class="btn btn-outline-info"
+            >
+              Profile
+            </a>
 
-              {% if user.userprofile.role == 'RESTAURANT_OWNER' %}
+            <form method="post" action="{% url 'logout' %}" class="logout-form">
+              {% csrf_token %}
 
-                <div class="nav-group">
+              <button type="submit" class="btn btn-outline-danger">
+                Logout
+              </button>
+            </form>
+          </div>
 
-                  <a
-                    href="{% url 'restaurant-owner-dashboard' %}"
-                    class="btn btn-outline-warning"
-                  >
-                    Owner Dashboard
-                  </a>
+          {% elif user.userprofile.role == 'CRITIC' %}
 
-                  <a
-                    href="{% url 'owner-posts' %}"
-                    class="btn btn-outline-light"
-                  >
-                    My Restaurant Posts
-                  </a>
+          <div class="nav-group">
+            <a href="{% url 'feed' %}" class="btn btn-outline-light"> Feed </a>
 
-                  <a
-                    href="{% url 'create-post' %}"
-                    class="btn btn-warning"
-                  >
-                    Create Post
-                  </a>
+            <a href="{% url 'trending' %}" class="btn btn-outline-light">
+              Trending
+            </a>
 
-                  <a
-                    href="{% url 'profile' user.username %}"
-                    class="btn btn-outline-info"
-                  >
-                    Profile
-                  </a>
+            <a href="{% url 'following-feed' %}" class="btn btn-outline-light">
+              Following
+            </a>
 
-                  <form
-                    method="POST"
-                    action="{% url 'logout' %}"
-                    class="logout-form"
-                  >
-                    {% csrf_token %}
+            <a href="{% url 'favorites' %}" class="btn btn-outline-warning">
+              Favorites
+            </a>
+          </div>
 
-                    <button
-                      type="submit"
-                      class="btn btn-outline-danger"
-                    >
-                      Logout
-                    </button>
-                  </form>
+          <div class="nav-divider"></div>
 
-                </div>
+          <div class="nav-group">
+            <a href="{% url 'create-post' %}" class="btn btn-warning">
+              Create Post
+            </a>
 
-              {% elif user.userprofile.role == 'CRITIC' %}
+            <a href="{% url 'restaurant-list' %}" class="btn btn-warning">
+              Restaurants
+            </a>
 
-                <div class="nav-group">
+            <a
+              href="{% url 'critic-dashboard' %}"
+              class="btn btn-outline-warning"
+            >
+              Critic Dashboard
+            </a>
+          </div>
 
-                  <a
-                    href="{% url 'feed' %}"
-                    class="btn btn-outline-light"
-                  >
-                    Feed
-                  </a>
+          <div class="nav-divider"></div>
 
-                  <a
-                    href="{% url 'trending' %}"
-                    class="btn btn-outline-light"
-                  >
-                    Trending
-                  </a>
+          <div class="nav-group">
+            <a
+              href="{% url 'profile' user.username %}"
+              class="btn btn-outline-info"
+            >
+              Profile
+            </a>
 
-                  <a
-                    href="{% url 'following-feed' %}"
-                    class="btn btn-outline-light"
-                  >
-                    Following
-                  </a>
+            <form method="post" action="{% url 'logout' %}" class="logout-form">
+              {% csrf_token %}
 
-                  <a
-                    href="{% url 'favorites' %}"
-                    class="btn btn-outline-warning"
-                  >
-                    Favorites
-                  </a>
-
-                </div>
-
-                <div class="nav-divider"></div>
-
-                <div class="nav-group">
-
-                  <a
-                    href="{% url 'create-post' %}"
-                    class="btn btn-warning"
-                  >
-                    Create Post
-                  </a>
-
-                  <a
-                    href="{% url 'restaurant-list' %}"
-                    class="btn btn-warning"
-                  >
-                    Restaurants
-                  </a>
-
-                  <a
-                    href="{% url 'critic-dashboard' %}"
-                    class="btn btn-outline-warning"
-                  >
-                    Critic Dashboard
-                  </a>
-
-                </div>
-
-                <div class="nav-divider"></div>
-
-                <div class="nav-group">
-
-                  <a
-                    href="{% url 'profile' user.username %}"
-                    class="btn btn-outline-info"
-                  >
-                    Profile
-                  </a>
-
-                  <form
-                    method="POST"
-                    action="{% url 'logout' %}"
-                    class="logout-form"
-                  >
-                    {% csrf_token %}
-
-                    <button
-                      type="submit"
-                      class="btn btn-outline-danger"
-                    >
-                      Logout
-                    </button>
-                  </form>
-
-                </div>
-
-              {% else %}
-
-                <div class="nav-group">
-
-                  <a
-                    href="{% url 'feed' %}"
-                    class="btn btn-outline-light"
-                  >
-                    Feed
-                  </a>
-
-                  <a
-                    href="{% url 'trending' %}"
-                    class="btn btn-outline-light"
-                  >
-                    Trending
-                  </a>
-
-                  <a
-                    href="{% url 'following-feed' %}"
-                    class="btn btn-outline-light"
-                  >
-                    Following
-                  </a>
-
-                  <a
-                    href="{% url 'favorites' %}"
-                    class="btn btn-outline-warning"
-                  >
-                    Favorites
-                  </a>
-
-                </div>
-
-                <div class="nav-divider"></div>
-
-                <div class="nav-group">
-
-                  <a
-                    href="{% url 'create-post' %}"
-                    class="btn btn-warning"
-                  >
-                    Create Post
-                  </a>
-
-                  <a
-                    href="{% url 'restaurant-list' %}"
-                    class="btn btn-warning"
-                  >
-                    Restaurants
-                  </a>
-
-                </div>
-
-                <div class="nav-divider"></div>
-
-                <div class="nav-group">
-
-                  <a
-                    href="{% url 'profile' user.username %}"
-                    class="btn btn-outline-info"
-                  >
-                    Profile
-                  </a>
-
-                  <form
-                    method="POST"
-                    action="{% url 'logout' %}"
-                    class="logout-form"
-                  >
-                    {% csrf_token %}
-
-                    <button
-                      type="submit"
-                      class="btn btn-outline-danger"
-                    >
-                      Logout
-                    </button>
-                  </form>
-
-                </div>
-
-              {% endif %}
-
-            {% endif %}
+              <button type="submit" class="btn btn-outline-danger">
+                Logout
+              </button>
+            </form>
+          </div>
 
           {% else %}
 
-            <div class="nav-group">
+          <div class="nav-group">
+            <a href="{% url 'feed' %}" class="btn btn-outline-light"> Feed </a>
 
-              <a
-                href="{% url 'login' %}"
-                class="btn btn-outline-light auth-login"
-              >
-                Login
-              </a>
+            <a href="{% url 'trending' %}" class="btn btn-outline-light">
+              Trending
+            </a>
 
-              <a
-                href="{% url 'register' %}"
-                class="btn auth-register"
-              >
-                Register
-              </a>
+            <a href="{% url 'following-feed' %}" class="btn btn-outline-light">
+              Following
+            </a>
 
-            </div>
+            <a href="{% url 'favorites' %}" class="btn btn-outline-warning">
+              Favorites
+            </a>
+          </div>
+
+          <div class="nav-divider"></div>
+
+          <div class="nav-group">
+            <a href="{% url 'create-post' %}" class="btn btn-warning">
+              Create Post
+            </a>
+
+            <a href="{% url 'restaurant-list' %}" class="btn btn-warning">
+              Restaurants
+            </a>
+          </div>
+
+          <div class="nav-divider"></div>
+
+          <div class="nav-group">
+            <a
+              href="{% url 'profile' user.username %}"
+              class="btn btn-outline-info"
+            >
+              Profile
+            </a>
+
+            <form method="post" action="{% url 'logout' %}" class="logout-form">
+              {% csrf_token %}
+
+              <button type="submit" class="btn btn-outline-danger">
+                Logout
+              </button>
+            </form>
+          </div>
+
+          {% endif %} {% endif %} {% else %}
+
+          <div class="nav-group">
+            <a
+              href="{% url 'login' %}"
+              class="btn btn-outline-light auth-login"
+            >
+              Login
+            </a>
+
+            <a href="{% url 'register' %}" class="btn auth-register">
+              Register
+            </a>
+          </div>
 
           {% endif %}
-
         </div>
-
       </div>
-
     </nav>
 
     {% if messages %}
 
-      <div class="container mt-3">
+    <div class="container mt-3">
+      {% for message in messages %}
 
-        {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm"
+        role="alert"
+      >
+        {{ message }}
 
-          <div
-            class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm"
-            role="alert"
-          >
-
-            {{ message }}
-
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="alert"
-            ></button>
-
-          </div>
-
-        {% endfor %}
-
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
       </div>
+
+      {% endfor %}
+    </div>
 
     {% endif %}
 
     <script>
-
       setTimeout(() => {
-
-        const alerts = document.querySelectorAll('.alert')
+        const alerts = document.querySelectorAll(".alert");
 
         alerts.forEach((alert) => {
-
-          alert.style.transition = 'opacity 0.5s ease'
-          alert.style.opacity = '0'
+          alert.style.transition = "opacity 0.5s ease";
+          alert.style.opacity = "0";
 
           setTimeout(() => {
-            alert.remove()
-          }, 500)
-
-        })
-
-      }, 3000)
-
+            alert.remove();
+          }, 500);
+        });
+      }, 3000);
     </script>
 
-    <main class="container py-5">
-      {% block content %}{% endblock %}
-    </main>
-
+    <main class="container py-5">{% block content %}{% endblock %}</main>
   </body>
 </html>

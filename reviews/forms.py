@@ -13,7 +13,7 @@ class CriticReviewForm(forms.ModelForm):
             'presentation_rating',
             'service_rating',
             'atmosphere_rating',
-            'review_text',
+            'review_text',  
             'is_featured',
         ]
 
