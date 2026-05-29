@@ -9,21 +9,3 @@ db.sqlite3
 
 media/
 
-staticfiles/
-
-*.pyo
-*.pyd
-.pytest_cache/
-.coverage
-htmlcov/
-.ruff_cache/
-.mypy_cache/
-.dmypy.json
-
-.DS_Store
-Thumbs.db
-
-*.log
-logs/
-
-local_settings.py
