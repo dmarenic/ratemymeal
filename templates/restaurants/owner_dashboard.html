@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="hero-section mb-5">
+    <div class="hero-content">
+
+        <div>
+            <span class="hero-badge">
+                <i class="bi bi-shop"></i>
+                Restaurant Owner
+            </span>
+
+            <h1 class="hero-title">
+                My Restaurants
+            </h1>
+
+            <p class="hero-subtitle">
+                Manage restaurants connected to your owner account.
+            </p>
+        </div>
+
+        <a
+            href="{% url 'create-restaurant' %}"
+            class="btn btn-warning btn-lg px-5"
+        >
+            Add Restaurant
+        </a>
+
+    </div>
+</section>
+
+<div class="row g-4">
+
+    {% for restaurant in restaurants %}
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="restaurant-card card h-100">
+
+                {% if restaurant.image %}
+                    <img
+                        src="{{ restaurant.image.url }}"
+                        class="card-img-top"
+                    >
+                {% else %}
+                    <img
+                        src="/static/images/default-restaurant.jpg"
+                        class="card-img-top"
+                    >
+                {% endif %}
+
+                <div class="card-body d-flex flex-column">
+
+                    <div class="city-tag">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        {{ restaurant.city }}
+                    </div>
+
+                    <h3>{{ restaurant.name }}</h3>
+
+                    <div class="d-grid gap-2 mt-auto">
+
+                        <a
+                            href="{% url 'restaurant-detail' restaurant.id %}"
+                            class="btn btn-warning"
+                        >
+                            View Restaurant
+                        </a>
+
+                        <a
+                            href="{% url 'edit-restaurant' restaurant.id %}"
+                            class="btn btn-outline-light"
+                        >
+                            Edit Restaurant
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% empty %}
+
+        <div class="empty-state">
+
+            <i class="bi bi-shop"></i>
+
+            <h2>No restaurants yet</h2>
+
+            <p>Create your first restaurant profile.</p>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+<style>
+
+.hero-section{
+    padding:48px;
+    border-radius:32px;
+    background:linear-gradient(135deg,#ffffff,#fff8f0);
+    box-shadow:0 20px 60px rgba(0,0,0,0.06);
+}
+
+.hero-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+}
+
+.hero-badge{
+    display:inline-flex;
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(255,122,0,0.12);
+    color:#ff7a00;
+    font-weight:900;
+}
+
+.hero-badge i{
+    margin-right:8px;
+}
+
+.hero-title{
+    font-size:4rem;
+    font-weight:900;
+    margin:18px 0;
+}
+
+.hero-subtitle{
+    color:#666;
+}
+
+.restaurant-card{
+    border:none;
+    border-radius:28px;
+    overflow:hidden;
+    transition:0.25s ease;
+}
+
+.restaurant-card:hover{
+    transform:translateY(-8px);
+}
+
+.city-tag{
+    display:inline-flex;
+    width:fit-content;
+    gap:6px;
+    padding:8px 14px;
+    background:rgba(76,175,80,0.12);
+    color:#4caf50;
+    border-radius:999px;
+    font-weight:800;
+    margin-bottom:16px;
+}
+
+.empty-state{
+    width:100%;
+    background:white;
+    padding:90px;
+    border-radius:32px;
+    text-align:center;
+}
+
+.empty-state i{
+    font-size:80px;
+    color:#ff7a00;
+}
+
+</style>
+
+{% endblock %}

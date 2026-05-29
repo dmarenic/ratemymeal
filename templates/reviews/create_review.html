@@ -1,0 +1,337 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="review-card">
+      <div class="text-center mb-5">
+        <div class="critic-icon"><i class="bi bi-star-fill"></i></div>
+
+        <h1>Create Verified Review</h1>
+
+        <p class="subtitle">
+          Share a professional food review with the community.
+        </p>
+      </div>
+
+      <div class="reviewed-post">
+        <div class="label">Reviewing Post</div>
+
+        <h3>{{ post.title }}</h3>
+      </div>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="critic-form">
+          {% for field in form %}
+          <div class="mb-4">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+            {{ field }} {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+            {% endif %} {% for error in field.errors %}
+            <div class="text-danger small mt-2">{{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="submit-area">
+          <button class="btn btn-warning">Publish Verified Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .critic-icon i {
+    color: #e53935;
+  }
+
+  .review-card {
+    background: linear-gradient(180deg, #ffffff, #fff8f0);
+
+    padding: 60px;
+
+    border-radius: 34px;
+
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+  }
+
+  .critic-icon {
+    width: 120px;
+
+    height: 120px;
+
+    margin: auto;
+
+    margin-bottom: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 54px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+      135deg,
+      rgba(255, 193, 7, 0.22),
+      rgba(255, 122, 0, 0.14)
+    );
+  }
+
+  .review-card h1 {
+    font-size: 3rem;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 1.08rem;
+
+    color: #777;
+  }
+
+  .reviewed-post {
+    padding: 32px;
+
+    margin-bottom: 38px;
+
+    border-radius: 26px;
+
+    background: linear-gradient(
+      135deg,
+      rgba(255, 193, 7, 0.1),
+      rgba(255, 248, 240, 0.9)
+    );
+
+    border: 2px solid rgba(255, 193, 7, 0.14);
+
+    text-align: center;
+  }
+
+  .label {
+    font-size: 0.82rem;
+
+    font-weight: 900;
+
+    color: #ff7a00;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+  }
+
+  .reviewed-post h3 {
+    font-size: 1.8rem;
+
+    font-weight: 900;
+
+    margin: 0;
+  }
+
+  .critic-form p {
+    margin-bottom: 28px;
+  }
+
+  .critic-form label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: 800;
+
+    color: #222;
+  }
+
+  .critic-form input,
+  .critic-form textarea,
+  .critic-form select {
+    width: 100%;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    border: 2px solid rgba(0, 0, 0, 0.08);
+
+    background: white;
+
+    transition: all 0.25s ease;
+  }
+
+  .critic-form textarea {
+    min-height: 240px;
+
+    resize: vertical;
+
+    line-height: 1.8;
+  }
+
+  .critic-form input:focus,
+  .critic-form textarea:focus,
+  .critic-form select:focus {
+    outline: none;
+
+    border-color: #ff7a00;
+
+    box-shadow: 0 0 0 6px rgba(255, 122, 0, 0.12);
+
+    transform: scale(1.01);
+  }
+
+  .submit-area {
+    margin-top: 50px;
+  }
+
+  .submit-area .btn-warning {
+    width: 100%;
+
+    min-height: 70px;
+
+    border: none;
+
+    border-radius: 22px;
+
+    font-size: 1.08rem;
+
+    font-weight: 900;
+
+    background: linear-gradient(135deg, #ffc107, #ff7a00);
+
+    color: white;
+
+    box-shadow: 0 20px 45px rgba(255, 193, 7, 0.28);
+
+    transition: all 0.25s ease;
+  }
+
+  .submit-area .btn-warning:hover {
+    transform: translateY(-3px) scale(1.02);
+  }
+
+  .submit-area .btn-warning:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    .review-card {
+      padding: 36px;
+
+      border-radius: 24px;
+    }
+
+    .review-card h1 {
+      font-size: 2.2rem;
+    }
+
+    .reviewed-post h3 {
+      font-size: 1.4rem;
+    }
+
+    .critic-form textarea {
+      min-height: 180px;
+    }
+  }
+
+  .critic-form input[type="checkbox"] {
+    appearance: none;
+
+    width: 26px;
+    height: 26px;
+
+    border-radius: 10px;
+
+    border: 2px solid rgba(255, 122, 0, 0.25);
+
+    background: white;
+
+    cursor: pointer;
+
+    position: relative;
+
+    transition: all 0.25s ease;
+
+    box-shadow: 0 4px 14px rgba(255, 122, 0, 0.06);
+  }
+
+  .critic-form input[type="checkbox"]:hover {
+    border-color: #ff7a00;
+
+    transform: scale(1.05);
+  }
+
+  .critic-form input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #ff7a00, #ffc107);
+
+    border-color: #ff7a00;
+
+    box-shadow: 0 10px 24px rgba(255, 122, 0, 0.28);
+  }
+
+  .critic-form input[type="checkbox"]:checked::after {
+    content: "\F26E";
+
+    font-family: "bootstrap-icons";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+  }
+
+  .critic-form p:has(input[type="checkbox"]) {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 193, 7, 0.08);
+
+    border: 2px solid rgba(255, 193, 7, 0.12);
+
+    transition: all 0.25s ease;
+  }
+
+  .critic-form p:has(input[type="checkbox"]):hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(255, 122, 0, 0.2);
+  }
+
+  .critic-form p:has(input[type="checkbox"]) label {
+    margin: 0;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    color: #222;
+  }
+</style>
+
+{% endblock %}

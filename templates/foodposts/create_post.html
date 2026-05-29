@@ -1,0 +1,209 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="create-post-card">
+      <div class="text-center mb-5">
+        <div class="hero-icon"><i class="bi bi-camera-fill"></i></div>
+
+        <h1>Create Food Post</h1>
+
+        <p>Share your meal and inspire the community.</p>
+      </div>
+
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="food-form">
+          {% for field in form %}
+          <div class="mb-4">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+            {{ field }} {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+            {% endif %} {% for error in field.errors %}
+            <div class="text-danger small mt-2">{{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="publish-zone">
+          <button class="btn btn-warning">Publish Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-icon i {
+    color: #ff7a00;
+  }
+
+  .create-post-card {
+    background: linear-gradient(180deg, #ffffff, #fff8f0);
+
+    padding: 60px;
+
+    border-radius: 34px;
+
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+  }
+
+  .hero-icon {
+    width: 120px;
+
+    height: 120px;
+
+    margin: auto;
+
+    margin-bottom: 26px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 52px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+      135deg,
+      rgba(255, 122, 0, 0.18),
+      rgba(229, 57, 53, 0.14)
+    );
+  }
+
+  .create-post-card h1 {
+    font-size: 3rem;
+
+    font-weight: 900;
+
+    margin-bottom: 12px;
+
+    letter-spacing: -1px;
+  }
+
+  .create-post-card p {
+    font-size: 1.08rem;
+
+    color: #666;
+  }
+
+  .food-form p {
+    margin-bottom: 28px;
+  }
+
+  .food-form label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: 800;
+
+    color: #222;
+  }
+
+  .food-form input,
+  .food-form textarea,
+  .food-form select {
+    width: 100%;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    border: 2px solid rgba(0, 0, 0, 0.08);
+
+    background: white;
+
+    transition: all 0.25s ease;
+  }
+
+  .food-form textarea {
+    min-height: 200px;
+
+    resize: vertical;
+
+    line-height: 1.8;
+  }
+
+  .food-form input:focus,
+  .food-form textarea:focus,
+  .food-form select:focus {
+    outline: none;
+
+    border-color: #ff7a00;
+
+    box-shadow: 0 0 0 6px rgba(255, 122, 0, 0.12);
+
+    transform: scale(1.01);
+  }
+
+  .food-form input[type="file"] {
+    padding: 20px;
+
+    cursor: pointer;
+
+    background: linear-gradient(180deg, white, #fff8f0);
+  }
+
+  .food-form input[type="file"]:hover {
+    border-color: #ff7a00;
+  }
+
+  .publish-zone {
+    margin-top: 50px;
+  }
+
+  .publish-zone .btn-warning {
+    width: 100%;
+
+    min-height: 70px;
+
+    border: none;
+
+    border-radius: 22px;
+
+    font-size: 1.08rem;
+
+    font-weight: 900;
+
+    background: linear-gradient(135deg, #ff7a00, #e53935);
+
+    color: white;
+
+    box-shadow: 0 20px 45px rgba(255, 122, 0, 0.3);
+
+    transition: all 0.25s ease;
+  }
+
+  .publish-zone .btn-warning:hover {
+    transform: translateY(-3px) scale(1.02);
+  }
+
+  .publish-zone .btn-warning:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    .create-post-card {
+      padding: 36px;
+
+      border-radius: 24px;
+    }
+
+    .create-post-card h1 {
+      font-size: 2.2rem;
+    }
+
+    .food-form textarea {
+      min-height: 160px;
+    }
+  }
+</style>
+
+{% endblock %}

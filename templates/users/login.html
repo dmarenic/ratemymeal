@@ -1,0 +1,136 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row justify-content-center align-items-center">
+  <div class="col-lg-5 col-md-7">
+    <div class="card border-0">
+      <div class="card-body p-5">
+        <div class="text-center mb-5">
+          <div class="mb-3 fs-1"><i class="bi bi-shop"></i></div>
+
+          <h1 class="fw-bold mb-2">Welcome Back</h1>
+
+          <p class="text-muted">Login and continue discovering great food.</p>
+        </div>
+
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="login-form">
+            {% for field in form %}
+            <div class="mb-3">
+              {{ field.label_tag }} {{ field }} {% if field.errors %}
+              <div class="text-danger mt-1">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+
+          <button type="submit" class="btn btn-warning w-100 py-3 mt-3">
+            Login
+          </button>
+        </form>
+
+        <div class="text-center mt-4">
+          <small class="text-muted">
+            New here?
+            <a
+              href="{% url 'register' %}"
+              class="fw-semibold"
+              style="color: #e53935; text-decoration: none"
+            >
+              Create account
+            </a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .login-icon {
+    width: 110px;
+    height: 110px;
+
+    margin: auto;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+      135deg,
+      rgba(255, 122, 0, 0.2),
+      rgba(255, 193, 7, 0.16)
+    );
+
+    box-shadow: 0 14px 35px rgba(255, 122, 0, 0.12);
+  }
+
+  .login-icon i {
+    font-size: 52px;
+    color: #ff7a00;
+
+    filter: drop-shadow(0 4px 12px rgba(255, 122, 0, 0.3));
+  }
+
+  .login-form p {
+    margin-bottom: 1.25rem;
+  }
+
+  .login-form label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #222;
+  }
+
+  .login-form input {
+    width: 100%;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 16px 18px;
+    background: white;
+
+    transition:
+      transform 0.25s ease,
+      border 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .login-form input:focus {
+    outline: none;
+    border-color: #ff7a00;
+
+    box-shadow: 0 0 0 6px rgba(255, 122, 0, 0.12);
+
+    transform: scale(1.01);
+  }
+
+  .card {
+    border-radius: 28px !important;
+
+    background: linear-gradient(180deg, #ffffff, #fff8f0);
+
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+  }
+
+  .btn-warning {
+    font-size: 1.05rem;
+
+    font-weight: 800;
+
+    border-radius: 18px;
+
+    min-height: 62px;
+  }
+
+  .btn-warning:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+</style>
+
+{% endblock %}
