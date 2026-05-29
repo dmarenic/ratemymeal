@@ -87,7 +87,7 @@ def create_restaurant(request):
 
             messages.success(request, "Restaurant successfully created!")
 
-            return redirect("restaurant-list")
+            return redirect("restaurant-detail", restaurant_id=restaurant.id)
 
     else:
 
