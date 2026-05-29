@@ -14,9 +14,11 @@
       </p>
     </div>
 
+    {% if request.user.userprofile.role == "RESTAURANT_OWNER" %}
     <a href="{% url 'create-restaurant' %}" class="btn btn-warning btn-lg px-5">
       Add Restaurant
     </a>
+    {% endif %}
   </div>
 </div>
 
