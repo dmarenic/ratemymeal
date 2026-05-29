@@ -4,6 +4,7 @@ from foodposts.models import FoodPost
 from django.contrib import messages
 from .models import Restaurant
 from .forms import RestaurantForm
+from django.shortcuts import render, get_object_or_404
 
 
 @login_required
@@ -40,9 +41,17 @@ def restaurant_list(request):
     return render(request, "restaurants/list.html", context)
 
 
+@login_required
 def restaurant_detail(request, restaurant_id):
 
-    restaurant = Restaurant.objects.get(id=restaurant_id)
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+
+    if (
+        request.user.userprofile.role == "RESTAURANT_OWNER"
+        and restaurant.owner != request.user
+    ):
+        messages.error(request, "You can only view your own restaurants.")
+        return redirect("restaurant-owner-dashboard")
 
     posts = restaurant.posts.all()
 
@@ -107,7 +116,7 @@ def edit_restaurant(request, restaurant_id):
     if request.user.userprofile.role != "RESTAURANT_OWNER":
         return redirect("feed")
 
-    restaurant = Restaurant.objects.get(id=restaurant_id)
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
 
     if restaurant.owner != request.user and not request.user.is_staff:
 
