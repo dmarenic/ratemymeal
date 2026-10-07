@@ -27,6 +27,35 @@ RateMyMeal is a Django web application for sharing and rating food experiences. 
 
 ---
 
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/02-feed-filters.png" width="100%" alt="Food feed filtered by cuisine and post type">
+      <p align="center"><sub>Food feed filtered by cuisine and post type</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/05-restaurants.png" width="100%" alt="Restaurant directory filtered by city, with average ratings">
+      <p align="center"><sub>Restaurant directory filtered by city, with average ratings</sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/03-post-detail.png" width="100%" alt="Post detail with likes, a featured critic review and comments">
+      <p align="center"><sub>Post detail with likes, a featured critic review and comments</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/screenshots/06-admin-dashboard.png" width="100%" alt="Admin dashboard with platform metrics and the latest reports">
+      <p align="center"><sub>Admin dashboard with platform metrics and the latest reports</sub></p>
+    </td>
+  </tr>
+</table>
+
+More screenshots (landing page, trending feed) are in [`docs/screenshots`](docs/screenshots).
+
+---
+
 ## Key Features
 
 **Content and Discovery**
