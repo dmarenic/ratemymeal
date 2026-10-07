@@ -3,15 +3,16 @@
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-2. [System Architecture](#system-architecture)
-3. [User Roles](#user-roles)
-4. [Permission Matrix](#permission-matrix)
-5. [Installation Guide](#installation-guide)
-6. [Configuration](#configuration)
-7. [Running Locally](#running-locally)
-8. [Demo Accounts](#demo-accounts)
-9. [Security Features](#security-features)
-10. [Authors](#authors)
+2. [Screenshots](#screenshots)
+3. [Key Features](#key-features)
+4. [User Roles](#user-roles)
+5. [Permission Matrix](#permission-matrix)
+6. [Installation Guide](#installation-guide)
+7. [Configuration](#configuration)
+8. [Running Locally](#running-locally)
+9. [Demo Accounts](#demo-accounts)
+10. [Security Features](#security-features)
+11. [Authors](#authors)
 
 ---
 
@@ -174,7 +175,7 @@ Can: everything, plus access Django Admin at `/admin/`; access the custom admin 
 
 **Prerequisites**
 
-- Python 3.10 or later
+- Python 3.12 or later
 - pip
 - Git
 
@@ -198,7 +199,7 @@ source venv/bin/activate
 
 # Windows
 python -m venv venv
-source venv\Scripts\activate
+venv\Scripts\activate
 ```
 
 3. Install dependencies:
@@ -320,7 +321,7 @@ The `admin` account is created as a superuser and has access to Django Admin at 
 
 ## Authors
 
-| Dominik Marenić | 
-| Nino Hrgetić | 
+- Dominik Marenić
+- Nino Hrgetić
 
 This project was developed as a university Software Engineering assignment.
